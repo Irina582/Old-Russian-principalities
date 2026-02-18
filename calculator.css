@@ -1,0 +1,78 @@
+/* опишем базовый стиль кнопки калькулятора */
+.my-btn { 
+  margin-right: 5px;           /* задаем отступ от кнопки справа */
+  margin-top: 5px;             /* задаем отступ от кнопки сверху*/
+  width: 50px;                 /* задаем ширину кнопки */
+  height: 50px;                /* задаем высоту кнопки */
+  border-radius: 4px;          /* небольшое скругление */
+  border: 1px solid #e5e5e5;   /* тонкая светлая обводка */
+  background: #ffe55c;         /* желтый фон для кнопок с цифрами */
+  color: #1a1f2b;              /* темно-синий текст */
+  font-size: 1.5rem;           /* увеличим размер шрифта */
+  font-family: Arial, Helvetica, sans-serif; /* шрифт */
+  cursor: pointer;             /* при наведении на кнопку курсор будет изменен */
+  user-select: none;           /* отключаем возможность выделить текст внутри кнопки */
+} 
+
+/* hover - это состояние элемента, когда на него наведен курсор */
+.my-btn:hover {
+  background: #ffcccc;         /* светло-красный фон при наведении */
+  border-color: #ff4d4d;       /* красная обводка */
+}
+
+/* active - это состояние активации элемента. В случае кнопки - нажатие на нее */
+.my-btn:active {
+  filter: brightness(130%);    /* увеличим интенсивность цвета для эффекта вспышки */
+}
+
+/* селектор для кнопок первостепенных операций */
+.my-btn.primary { 
+  background: #1a1f2b;         /* темно-синий */
+  color: #ffffff;              /* белый текст */
+  border-color: #1a1f2b;       /* обводка в тон */
+}
+
+.my-btn.primary:hover {
+  background: #2a2f3b;         /* чуть светлее при наведении */
+  border-color: #b3d4fc;       /* голубая обводка при наведении */
+}
+
+/* селектор для кнопок второстепенных операций */
+.my-btn.secondary { 
+  background: #b3d4fc;         /* голубой */
+  color: #1a1f2b;              /* темно-синий текст */
+  border-color: #8bb9ff;       /* темно-голубая обводка */
+}
+
+.my-btn.secondary:hover {
+  background: #8bb9ff;         /* темнее голубой при наведении */
+  border-color: #1a1f2b;       /* темно-синяя обводка */
+}
+
+/* селектор для кнопки расчета выражения (=) */
+.my-btn.execute { 
+  width: 110px;                /* сделаем кнопку шире других */
+  background: #1a1f2b;         /* темно-синий */
+  color: #ffffff;              /* белый текст */
+  border-color: #1a1f2b;
+}
+
+.my-btn.execute:hover {
+  background: #2a2f3b;         /* чуть светлее при наведении */
+  border-color: #b3d4fc;       /* голубая обводка при наведении */
+}
+
+/* селектор для поля вывода результата */
+.result { 
+  width: 220px;
+  height: 50px;
+  margin-bottom: 15px;         /* отступ снизу */
+  padding-right: 10px;         /* выступ справа */
+  background: #ffffff;         /* белый фон */
+  border: 1px solid #e5e5e5;   /* тонкая обводка */
+  border-bottom: 2px solid #b3d4fc; /* голубая полоса снизу */
+  text-align: right;           /* примагнитим текст к правой стороне */
+  color: #1a1f2b;              /* темно-синий текст */
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
