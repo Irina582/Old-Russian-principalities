@@ -46,9 +46,29 @@ window.onload = function(){
         selectedOperation = 'x';
     }
     document.getElementById("btn_op_plus").onclick = function() { 
-        if (a === '') return;
-        selectedOperation = '+';
+    if (a === '') return;
+    if (selectedOperation !== null && b !== '') {
+        let tempResult;
+        // Считаем в зависимости от того, какая операция была выбрана раньше
+        if (selectedOperation === '+') {
+            tempResult = (+a) + (+b);
+        } else if (selectedOperation === '-') {
+            tempResult = (+a) - (+b);
+        } else if (selectedOperation === 'x') {
+            tempResult = (+a) * (+b);
+        } else if (selectedOperation === '/') {
+            tempResult = (+a) / (+b);
+        }
+        
+        // Результат становится первым числом
+        a = tempResult.toString();
+        b = '';
+        outputElement.innerHTML = a;
     }
+    
+    // Запоминаем, что теперь выбрано сложение
+    selectedOperation = '+';
+}
     document.getElementById("btn_op_minus").onclick = function() { 
         if (a === '') return;
         selectedOperation = '-';
