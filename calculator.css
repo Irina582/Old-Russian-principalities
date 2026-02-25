@@ -68,7 +68,7 @@
   height: 50px;
   margin-bottom: 15px;         /* отступ снизу */
   padding-right: 10px;         /* выступ справа */
-  background: #ffffff;         /* белый фон */
+  background: #b3d4fc;         /* белый фон */
   border: 1px solid #e5e5e5;   /* тонкая обводка */
   border-bottom: 2px solid #b3d4fc; /* голубая полоса снизу */
   border-radius: 4px;
@@ -92,8 +92,9 @@
 .main {
   padding: 12px; /* внутренний отступ */
   width: 520px;
-  background-color: #a30000;
+  background-color:#f3eaea;
   border-radius: 12px; 
+  border: 6px solid #b3d4fc;
 }
 
 [id^="btn_digit_"]{
