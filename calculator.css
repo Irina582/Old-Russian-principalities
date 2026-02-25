@@ -92,7 +92,7 @@
 .main {
   padding: 12px; /* внутренний отступ */
   width: 520px;
-  background-color:#f3eaea;
+  background-color:'white';
   border-radius: 12px; 
   border: 6px solid #b3d4fc;
 }

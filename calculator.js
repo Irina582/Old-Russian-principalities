@@ -150,12 +150,12 @@ window.onload = function(){
     
         // Кнопка смены темы
     document.getElementById("btn_op_theme").onclick = function() {
-        if (document.getElementsByClassName("main")[0].style.backgroundColor === 'rgb(243, 234, 234)' ||
+        if (document.getElementsByClassName("main")[0].style.backgroundColor === 'white' ||
          document.getElementsByClassName("main")[0].style.backgroundColor === '') {
             document.getElementsByClassName("main")[0].style.backgroundColor = 'rgb(163, 0, 0)';
         } 
         else {
-            document.getElementsByClassName("main")[0].style.backgroundColor = 'rgb(243, 234, 234)';
+            document.getElementsByClassName("main")[0].style.backgroundColor = 'white';
         }
     }
 
