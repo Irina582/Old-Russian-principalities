@@ -6,8 +6,8 @@
   height: 50px;                /* задаем высоту кнопки */
   border-radius: 4px;          /* небольшое скругление */
   border: 1px solid #e5e5e5;   /* тонкая светлая обводка */
-  background: #ffe55c;         /* желтый фон для кнопок с цифрами */
-  color: #1a1f2b;              /* темно-синий текст */
+  background: #f1f2f3;         /* желтый фон для кнопок с цифрами */
+  color: #38393d;              /* темно-синий текст */
   font-size: 1.5rem;           /* увеличим размер шрифта */
   font-family: Arial, Helvetica, sans-serif; /* шрифт */
   cursor: pointer;             /* при наведении на кнопку курсор будет изменен */
@@ -16,8 +16,9 @@
 
 /* hover - это состояние элемента, когда на него наведен курсор */
 .my-btn:hover {
-  background: #ffcccc;         /* светло-красный фон при наведении */
-  border-color: #ff4d4d;       /* красная обводка */
+  background: #ed2324;         /* светло-красный фон при наведении */
+  border-color: #ed2324;       /* красная обводка */
+  color:  #ffffff;
 }
 
 /* active - это состояние активации элемента. В случае кнопки - нажатие на нее */
@@ -27,39 +28,41 @@
 
 /* селектор для кнопок первостепенных операций */
 .my-btn.primary { 
-  background: #1a1f2b;         /* темно-синий */
+  background: #38393d;         /* темно-синий */
   color: #ffffff;              /* белый текст */
-  border-color: #1a1f2b;       /* обводка в тон */
+  border-color: #38393d;       /* обводка в тон */
 }
 
 .my-btn.primary:hover {
-  background: #2a2f3b;         /* чуть светлее при наведении */
-  border-color: #b3d4fc;       /* голубая обводка при наведении */
+  background: #ed2324;         /* светло-красный фон при наведении */
+  border-color: #ed2324;       /* красная обводка */
+  color:  #ffffff;    /* голубая обводка при наведении */
 }
 
 /* селектор для кнопок второстепенных операций */
 .my-btn.secondary { 
-  background: #b3d4fc;         /* голубой */
-  color: #1a1f2b;              /* темно-синий текст */
-  border-color: #8bb9ff;       /* темно-голубая обводка */
+  background: linear-gradient(to right, #7400e9, #65c8ff);
+  color: white;  
+  border: none;  
+  transition: opacity 0.3s ease; /*плавность*/
 }
 
 .my-btn.secondary:hover {
-  background: #8bb9ff;         /* темнее голубой при наведении */
-  border-color: #1a1f2b;       /* темно-синяя обводка */
+  background: linear-gradient(to right, #65c8ff, #7400e9);  
+  opacity: 0.9;  /*лёгкое затемнение*/
 }
 
 /* селектор для кнопки расчета выражения (=) */
 .my-btn.execute { 
   width: 110px;                /* сделаем кнопку шире других */
-  background: #1a1f2b;         /* темно-синий */
+  background: #38393d;         /* темно-синий */
   color: #ffffff;              /* белый текст */
-  border-color: #1a1f2b;
+  border-color: #38393d;
 }
 
 .my-btn.execute:hover {
-  background: #2a2f3b;         /* чуть светлее при наведении */
-  border-color: #b3d4fc;       /* голубая обводка при наведении */
+  background: #ed2324;         /* чуть светлее при наведении */
+  border-color: #ed2324;       /* голубая обводка при наведении */
 }
 
 /* селектор для поля вывода результата */
@@ -68,25 +71,27 @@
   height: 50px;
   margin-bottom: 15px;         /* отступ снизу */
   padding-right: 10px;         /* выступ справа */
-  background: #b3d4fc;         /* белый фон */
+  background: #38393d;         /* белый фон */
   border: 1px solid #e5e5e5;   /* тонкая обводка */
-  border-bottom: 2px solid #b3d4fc; /* голубая полоса снизу */
+  border-bottom: 2px solid #ffffff; /* голубая полоса снизу */
   border-radius: 4px;
   text-align: right;           /* примагнитим текст к правой стороне */
-  color: #1a1f2b;              /* темно-синий текст */
+  color: #ffffff;              /* темно-синий текст */
   font-size: 2rem;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 /* для кнопки backspace */
-.my-btn.back{background: #b3d4fc;         /* голубой */
-  color: #1a1f2b;              /* темно-синий текст */
-  border-color: #8bb9ff;       /* темно-голубая обводка */
+.my-btn.back{
+  background: linear-gradient(to right, #7400e9, #65c8ff);
+  color: white;  
+  border: none;  
+  transition: opacity 0.3s ease; /*плавность*/
   width: 132px;
 }
 .my-btn.back:hover {
-  background: #8bb9ff;         /* темнее голубой при наведении */
-  border-color: #1a1f2b;       /* темно-синяя обводка */
+  background: linear-gradient(to right, #65c8ff, #7400e9);  
+  opacity: 0.9;  /*лёгкое затемнение*/
 }
 
 .main {
@@ -94,7 +99,7 @@
   width: 520px;
   background-color:'white';
   border-radius: 12px; 
-  border: 6px solid #b3d4fc;
+  border: 6px solid #38393d;
 }
 
 [id^="btn_digit_"]{

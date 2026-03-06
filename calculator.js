@@ -160,11 +160,11 @@ window.onload = function(){
 
        // Кнопка смены цвета поля с результатом
     document.getElementById("btn_op_rescolor").onclick = function() {
-        if (document.getElementById("result").style.backgroundColor === 'white' || document.getElementById("result").style.backgroundColor === '') {
-            document.getElementById("result").style.backgroundColor = 'lightyellow';
+        if (document.getElementById("result").style.backgroundColor === 'rgb(56, 57, 61)' || document.getElementById("result").style.backgroundColor === '') {
+            document.getElementById("result").style.backgroundColor = 'rgb(237, 35, 36)';
         } 
         else {
-            document.getElementById("result").style.backgroundColor = 'white';
+            document.getElementById("result").style.backgroundColor = 'rgb(56, 57, 61)';
         }
     }
     
@@ -172,7 +172,7 @@ window.onload = function(){
     document.getElementById("btn_op_theme").onclick = function() {
         if (document.getElementsByClassName("main")[0].style.backgroundColor === 'white' ||
          document.getElementsByClassName("main")[0].style.backgroundColor === '') {
-            document.getElementsByClassName("main")[0].style.backgroundColor = 'rgb(163, 0, 0)';
+            document.getElementsByClassName("main")[0].style.backgroundColor = 'rgb(18, 18, 18)';
         } 
         else {
             document.getElementsByClassName("main")[0].style.backgroundColor = 'white';
