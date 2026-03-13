@@ -1,155 +1,155 @@
 window.onload = function(){ 
     // Переменные для хранения чисел и операций
-    let a = ''           // Первое число
-    let b = ''           // Второе число
-    let expressionResult = ''  // Результат вычисления
-    let selectedOperation = null  // Выбранная операция
+    let aPrincipalities = ''           // Первое число
+    let bPrincipalities = ''           // Второе число
+    let expressionResultPrincipalities = ''  // Результат вычисления
+    let selectedOperationPrincipalities = null  // Выбранная операция
 
         // Получаем доступ к экрану калькулятора в поле вывода
-    const outputElement = document.getElementById("result")
+    const outputElementPrincipalities = document.getElementById("result-principalities")
 
         // Получаем все кнопки с цифрами (их id начинаются с "btn_digit_")
-    const digitButtons = document.querySelectorAll('[id ^= "btn_digit_"]')
+    const digitButtonsPrincipalities = document.querySelectorAll('[id ^= "btn_digit_"]')
 
-    function onDigitButtonClicked(digit) {
+    function onDigitButtonClickedPrincipalities(digitPrincipalities) {
         // Если операция не выбрана, работаем с первым числом (a) - после выбора операции начинается ввод второго числа
-        if (!selectedOperation) {
+        if (!selectedOperationPrincipalities) {
             // Проверяем, не пытаемся ли мы добавить вторую точку
-            if ((digit != '.') || (digit == '.' && !a.includes(digit))) { 
+            if ((digitPrincipalities != '.') || (digitPrincipalities == '.' && !aPrincipalities.includes(digitPrincipalities))) { 
                 // здесь у нас происходит складывание сохраненного уже числа и нажатой цифры. Оба поля string, поэтому
                 // каждый раз цифра записывается в конец строки. Например: a = '14', digit = '5', 
                 // a += digit - это короткая запись a = a + digit - поэтомоу после этой операции a = '145'
-                a += digit;
+                aPrincipalities += digitPrincipalities;
             }
-            outputElement.innerHTML = a;
+            outputElementPrincipalities.innerHTML = aPrincipalities;
         } 
         // Если операция выбрана, работаем со вторым числом (b)
         else {
-            if ((digit != '.') || (digit == '.' && !b.includes(digit))) { 
-                b += digit;
-                outputElement.innerHTML = b;        
+            if ((digitPrincipalities != '.') || (digitPrincipalities == '.' && !bPrincipalities.includes(digitPrincipalities))) { 
+                bPrincipalities += digitPrincipalities;
+                outputElementPrincipalities.innerHTML = bPrincipalities;        
             }
         }
     }
         // Настраиваем обработчики для цифровых кнопок - для каждой кнопки с цифрой и точкой вызываем выше написанную функцию по формированию числа
-    digitButtons.forEach(button => {
-        button.onclick = function() {
+    digitButtonsPrincipalities.forEach(buttonPrincipalities => {
+        buttonPrincipalities.onclick = function() {
             // берем текст, написанный на кнопке - он и является цифрой
-            const digitValue = button.innerHTML;
-            onDigitButtonClicked(digitValue);
+            const digitValuePrincipalities = buttonPrincipalities.innerHTML;
+            onDigitButtonClickedPrincipalities(digitValuePrincipalities);
         }
     });
 
         // Настраиваем обработчики для кнопок операций - сохраняем выбранную операцию в ранее созданную переменную selectedOperation
-    document.getElementById("btn_op_mult").onclick = function() { 
-        if (a === '') return;
-        selectedOperation = 'x';
+    document.getElementById("btn_op_mult-principalities").onclick = function() { 
+        if (aPrincipalities === '') return;
+        selectedOperationPrincipalities = 'x';
     }
-    document.getElementById("btn_op_plus").onclick = function() { 
-    if (a === '') return;
-    if (selectedOperation !== null && b !== '') {
-        let tempResult;
+    document.getElementById("btn_op_plus-principalities").onclick = function() { 
+    if (aPrincipalities === '') return;
+    if (selectedOperationPrincipalities !== null && bPrincipalities !== '') {
+        let tempResultPrincipalities;
         // Считаем в зависимости от того, какая операция была выбрана раньше
-        if (selectedOperation === '+') {
-            tempResult = (+a) + (+b);
-        } else if (selectedOperation === '-') {
-            tempResult = (+a) - (+b);
-        } else if (selectedOperation === 'x') {
-            tempResult = (+a) * (+b);
-        } else if (selectedOperation === '/') {
-            tempResult = (+a) / (+b);
+        if (selectedOperationPrincipalities === '+') {
+            tempResultPrincipalities = (+aPrincipalities) + (+bPrincipalities);
+        } else if (selectedOperationPrincipalities === '-') {
+            tempResultPrincipalities = (+aPrincipalities) - (+bPrincipalities);
+        } else if (selectedOperationPrincipalities === 'x') {
+            tempResultPrincipalities = (+aPrincipalities) * (+bPrincipalities);
+        } else if (selectedOperationPrincipalities === '/') {
+            tempResultPrincipalities = (+aPrincipalities) / (+bPrincipalities);
         }
         
         // Результат становится первым числом
-        a = tempResult.toString();
-        b = '';
-        outputElement.innerHTML = a;
+        aPrincipalities = tempResultPrincipalities.toString();
+        bPrincipalities = '';
+        outputElementPrincipalities.innerHTML = aPrincipalities;
     }
     
     // Запоминаем, что теперь выбрано сложение
-    selectedOperation = '+';
+    selectedOperationPrincipalities = '+';
 }
-    document.getElementById("btn_op_minus").onclick = function() { 
-        if (a === '') return;
-        selectedOperation = '-';
+    document.getElementById("btn_op_minus-principalities").onclick = function() { 
+        if (aPrincipalities === '') return;
+        selectedOperationPrincipalities = '-';
     }
-    document.getElementById("btn_op_div").onclick = function() { 
-        if (a === '') return;
-        selectedOperation = '/';
+    document.getElementById("btn_op_div-principalities").onclick = function() { 
+        if (aPrincipalities === '') return;
+        selectedOperationPrincipalities = '/';
     }
 
         // Очищаем все значения при нажатии на кнопку C (вешаем обработчик события click на кнопку С)
-    document.getElementById("btn_op_clear").onclick = function() { 
-        a = ''
-        b = ''
-        selectedOperation = null
-        expressionResult = ''
-        outputElement.innerHTML = 0
+    document.getElementById("btn_op_clear-principalities").onclick = function() { 
+        aPrincipalities = ''
+        bPrincipalities = ''
+        selectedOperationPrincipalities = null
+        expressionResultPrincipalities = ''
+        outputElementPrincipalities.innerHTML = 0
     }
 
         // Кнопка смены знака 
-    document.getElementById("btn_op_sign").onclick = function(){
-        if (selectedOperation === null) {
-            a = -a;
-            outputElement.innerHTML = a;
+    document.getElementById("btn_op_sign-principalities").onclick = function(){
+        if (selectedOperationPrincipalities === null) {
+            aPrincipalities = -aPrincipalities;
+            outputElementPrincipalities.innerHTML = aPrincipalities;
         }
         else{
-            if (b!==''){
-                b = -b;
-                outputElement.innerHTML = b;
+            if (bPrincipalities!==''){
+                bPrincipalities = -bPrincipalities;
+                outputElementPrincipalities.innerHTML = bPrincipalities;
             }
         }
     }
 
         // Кнопка вычисления процента
-    document.getElementById("btn_op_percent").onclick = function(){
-        if (selectedOperation === null){
-            a = a/100;
-            outputElement.innerHTML = a;
+    document.getElementById("btn_op_percent-principalities").onclick = function(){
+        if (selectedOperationPrincipalities === null){
+            aPrincipalities = aPrincipalities/100;
+            outputElementPrincipalities.innerHTML = aPrincipalities;
         }
         else{
-            b = b/100;
-            outputElement.innerHTML = b;
+            bPrincipalities = bPrincipalities/100;
+            outputElementPrincipalities.innerHTML = bPrincipalities;
         }
     }
 
         // Кнопка backspace
 
-        document.getElementById("btn_op_backspace").onclick = function(){
-        if (selectedOperation === null){
-            a = outputElement.innerHTML
-            if (a.length === 2 && a[0] === '-'){
-                a = ''
-                outputElement.innerHTML = 0
+        document.getElementById("btn_op_backspace-principalities").onclick = function(){
+        if (selectedOperationPrincipalities === null){
+            aPrincipalities = outputElementPrincipalities.innerHTML
+            if (aPrincipalities.length === 2 && aPrincipalities[0] === '-'){
+                aPrincipalities = ''
+                outputElementPrincipalities.innerHTML = 0
             }
-            if(a.length > 1 && a !== ''){
-                a = a.slice(0, a.length-1)
-                outputElement.innerHTML = a
+            if(aPrincipalities.length > 1 && aPrincipalities !== ''){
+                aPrincipalities = aPrincipalities.slice(0, aPrincipalities.length-1)
+                outputElementPrincipalities.innerHTML = aPrincipalities
             }
             else{
-                a = ''
-                outputElement.innerHTML = 0
+                aPrincipalities = ''
+                outputElementPrincipalities.innerHTML = 0
             }
         }
         else{
-            b = outputElement.innerHTML
-            if (b.length === 2 && b[0] === '-'){
-                b = ''
-                outputElement.innerHTML = 0
+            bPrincipalities = outputElementPrincipalities.innerHTML
+            if (bPrincipalities.length === 2 && bPrincipalities[0] === '-'){
+                bPrincipalities = ''
+                outputElementPrincipalities.innerHTML = 0
             }
-            if (b.length > 1 && b !== ''){
-                b = b.slice(0, b.length-1)
-                outputElement.innerHTML = b
+            if (bPrincipalities.length > 1 && bPrincipalities !== ''){
+                bPrincipalities = bPrincipalities.slice(0, bPrincipalities.length-1)
+                outputElementPrincipalities.innerHTML = bPrincipalities
             }
             else{
-                b = ''
-                outputElement.innerHTML = 0
+                bPrincipalities = ''
+                outputElementPrincipalities.innerHTML = 0
             }
         }
     }
 
         // Кнопка смены фона страницы
-    document.getElementById("btn_op_color").onclick = function() {
+    document.getElementById("btn_op_color-principalities").onclick = function() {
         if (document.body.style.backgroundColor === 'white' || document.body.style.backgroundColor === '') {
             document.body.style.backgroundColor = 'lightgreen';
         } 
@@ -159,123 +159,123 @@ window.onload = function(){
     }
 
        // Кнопка смены цвета поля с результатом
-    document.getElementById("btn_op_rescolor").onclick = function() {
-        if (document.getElementById("result").style.backgroundColor === 'rgb(56, 57, 61)' || document.getElementById("result").style.backgroundColor === '') {
-            document.getElementById("result").style.backgroundColor = 'rgb(237, 35, 36)';
+    document.getElementById("btn_op_rescolor-principalities").onclick = function() {
+        if (document.getElementById("result-principalities").style.backgroundColor === 'rgb(56, 57, 61)' || document.getElementById("result-principalities").style.backgroundColor === '') {
+            document.getElementById("result-principalities").style.backgroundColor = 'rgb(237, 35, 36)';
         } 
         else {
-            document.getElementById("result").style.backgroundColor = 'rgb(56, 57, 61)';
+            document.getElementById("result-principalities").style.backgroundColor = 'rgb(56, 57, 61)';
         }
     }
     
         // Кнопка смены темы
-    document.getElementById("btn_op_theme").onclick = function() {
-        if (document.getElementsByClassName("main")[0].style.backgroundColor === 'white' ||
-         document.getElementsByClassName("main")[0].style.backgroundColor === '') {
-            document.getElementsByClassName("main")[0].style.backgroundColor = 'rgb(18, 18, 18)';
+    document.getElementById("btn_op_theme-principalities").onclick = function() {
+        if (document.getElementsByClassName("main-principalities")[0].style.backgroundColor === 'white' ||
+         document.getElementsByClassName("main-principalities")[0].style.backgroundColor === '') {
+            document.getElementsByClassName("main-principalities")[0].style.backgroundColor = 'rgb(18, 18, 18)';
         } 
         else {
-            document.getElementsByClassName("main")[0].style.backgroundColor = 'white';
+            document.getElementsByClassName("main-principalities")[0].style.backgroundColor = 'white';
         }
     }
 
         // Кнопка вычисления квадратного корня
-    document.getElementById("btn_op_sqrt").onclick = function() {
-        if (selectedOperation === null){
-            a = a**0.5;
-            outputElement.innerHTML = a;
+    document.getElementById("btn_op_sqrt-principalities").onclick = function() {
+        if (selectedOperationPrincipalities === null){
+            aPrincipalities = aPrincipalities**0.5;
+            outputElementPrincipalities.innerHTML = aPrincipalities;
         }
         else{
-            b = b**0.5;
-            outputElement.innerHTML = b;
+            bPrincipalities = bPrincipalities**0.5;
+            outputElementPrincipalities.innerHTML = bPrincipalities;
         }
     }
 
         // Кнопка для возведения в квадрат
-    document.getElementById("btn_op_square").onclick = function() {
-        if (selectedOperation === null){
-            a = a**2;
-            outputElement.innerHTML = a;
+    document.getElementById("btn_op_square-principalities").onclick = function() {
+        if (selectedOperationPrincipalities === null){
+            aPrincipalities = aPrincipalities**2;
+            outputElementPrincipalities.innerHTML = aPrincipalities;
         }
         else{
-            b = b**2;
-            outputElement.innerHTML = b;
+            bPrincipalities = bPrincipalities**2;
+            outputElementPrincipalities.innerHTML = bPrincipalities;
         }
     }
 
         // Кнопка для вычисления факториала
-     document.getElementById("btn_op_factorial").onclick = function() {
-        let summa = 1;
-        if (selectedOperation === null){
-            for (let i=1; i<=+a; i++){
-                summa *= i;
+     document.getElementById("btn_op_factorial-principalities").onclick = function() {
+        let summaPrincipalities = 1;
+        if (selectedOperationPrincipalities === null){
+            for (let i=1; i<=+aPrincipalities; i++){
+                summaPrincipalities *= i;
             }
-            a = summa;
-            outputElement.innerHTML = a;
+            aPrincipalities = summaPrincipalities;
+            outputElementPrincipalities.innerHTML = aPrincipalities;
         }
         else{
-            for (let i=1; i<=b;i++){
-                summa*=i;
+            for (let i=1; i<=bPrincipalities;i++){
+                summaPrincipalities*=i;
             }
-            b = summa;
-            outputElement.innerHTML = b;
+            bPrincipalities = summaPrincipalities;
+            outputElementPrincipalities.innerHTML = bPrincipalities;
         }
     }
 
         // Кнопка для добавления 000
-    document.getElementById("btn_digit_000").onclick = function() {
-        if (selectedOperation === null){
-            a = a+='000';
-            outputElement.innerHTML = a;
+    document.getElementById("btn_digit_000-principalities").onclick = function() {
+        if (selectedOperationPrincipalities === null){
+            aPrincipalities = aPrincipalities+='000';
+            outputElementPrincipalities.innerHTML = aPrincipalities;
         }
         else{
-            b = b+='000';
-            outputElement.innerHTML = b;
+            bPrincipalities = bPrincipalities+='000';
+            outputElementPrincipalities.innerHTML = bPrincipalities;
         }
     }
 
         // Модуль числа
-    document.getElementById("btn_op_modul").onclick = function() {
-        if (selectedOperation === null){
-            if (a<0){
-                a = a*(-1);
+    document.getElementById("btn_op_modul-principalities").onclick = function() {
+        if (selectedOperationPrincipalities === null){
+            if (aPrincipalities<0){
+                aPrincipalities = aPrincipalities*(-1);
             }
             else{
-                a = a;
+                aPrincipalities = aPrincipalities;
             }
-            outputElement.innerHTML = a;
+            outputElementPrincipalities.innerHTML = aPrincipalities;
         }
         else{
-            if (b<0){
-                b = b*(-1);
+            if (bPrincipalities<0){
+                bPrincipalities = bPrincipalities*(-1);
             }
             else{
-                b = b;
+                bPrincipalities = bPrincipalities;
             }
-            outputElement.innerHTML = b;
+            outputElementPrincipalities.innerHTML = bPrincipalities;
         }
     }
 
         // Вычисляем результат при нажатии на = (вешаем обработчик события click на кнопку =)
-    document.getElementById("btn_op_equal").onclick = function() { 
+    document.getElementById("btn_op_equal-principalities").onclick = function() { 
         // Проверяем, что у нас есть оба числа и операция
-        if (a === '' || b === '' || !selectedOperation)
+        if (aPrincipalities === '' || bPrincipalities === '' || !selectedOperationPrincipalities)
             return
             
         // Выполняем выбранную операцию - чтобы не плодить if, воспользуемся удобной и более наглядной функцией сравнения switch, которая на основе значения переданной переменной выполняет нужный кейс. В case указывается ожидаемое точное значение переменной (это может быть любое значение), а затем после : пишется код, который нужно выполнить в данном случае. Case проверяются последовательно, выход из switch происходит при попадании на break или если значение не совпало ни с чем.
-        switch(selectedOperation) { 
+        switch(selectedOperationPrincipalities) { 
             case 'x':
-                expressionResult = (+a) * (+b)
+                expressionResultPrincipalities = (+aPrincipalities) * (+bPrincipalities)
                 // обязательно пишется в конце действий case, чтобы выйти из switch, иначе продолжится сравнение case дальше
                 break;
             case '+':
-                expressionResult = (+a) + (+b)
+                expressionResultPrincipalities = (+aPrincipalities) + (+bPrincipalities)
                 break;
             case '-':
-                expressionResult = (+a) - (+b)
+                expressionResultPrincipalities = (+aPrincipalities) - (+bPrincipalities)
                 break;
             case '/':
-                expressionResult = (+a) / (+b)
+                expressionResultPrincipalities = (+aPrincipalities) / (+bPrincipalities)
                 break;
             // желательно (но не обязательно) всегда прописывать дефолтное поведение, в случае если в переменной окажется не перечисленное выше значение. в нашем случае это не нужно.
             default:
@@ -283,11 +283,11 @@ window.onload = function(){
         }
         
         // Сохраняем результат и очищаем второе число, чтобы при новом вводе записывать значение нового числа в b
-        a = expressionResult.toString()
-        b = ''
-        selectedOperation = null
+        aPrincipalities = expressionResultPrincipalities.toString()
+        bPrincipalities = ''
+        selectedOperationPrincipalities = null
 
         // Показываем результат на экране
-        outputElement.innerHTML = a
+        outputElementPrincipalities.innerHTML = aPrincipalities
     }
 };

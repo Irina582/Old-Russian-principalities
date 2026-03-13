@@ -1,5 +1,5 @@
 /* опишем базовый стиль кнопки калькулятора */
-.my-btn { 
+.my-btn-principalities { 
   margin-right: 5px;           /* задаем отступ от кнопки справа */
   margin-top: 5px;             /* задаем отступ от кнопки сверху*/
   width: 50px;                 /* задаем ширину кнопки */
@@ -15,58 +15,58 @@
 } 
 
 /* hover - это состояние элемента, когда на него наведен курсор */
-.my-btn:hover {
+.my-btn-principalities:hover {
   background: #ed2324;         /* светло-красный фон при наведении */
   border-color: #ed2324;       /* красная обводка */
   color:  #ffffff;
 }
 
 /* active - это состояние активации элемента. В случае кнопки - нажатие на нее */
-.my-btn:active {
+.my-btn-principalities:active {
   filter: brightness(130%);    /* увеличим интенсивность цвета для эффекта вспышки */
 }
 
 /* селектор для кнопок первостепенных операций */
-.my-btn.primary { 
+.my-btn-principalities.primary-principalities { 
   background: #38393d;         /* темно-синий */
   color: #ffffff;              /* белый текст */
   border-color: #38393d;       /* обводка в тон */
 }
 
-.my-btn.primary:hover {
+.my-btn-principalities.primary-principalities:hover {
   background: #ed2324;         /* светло-красный фон при наведении */
   border-color: #ed2324;       /* красная обводка */
   color:  #ffffff;    /* голубая обводка при наведении */
 }
 
 /* селектор для кнопок второстепенных операций */
-.my-btn.secondary { 
+.my-btn-principalities.secondary-principalities { 
   background: linear-gradient(to right, #7400e9, #65c8ff);
   color: white;  
   border: none;  
   transition: opacity 0.3s ease; /*плавность*/
 }
 
-.my-btn.secondary:hover {
+.my-btn-principalities.secondary-principalities:hover {
   background: linear-gradient(to right, #65c8ff, #7400e9);  
   opacity: 0.9;  /*лёгкое затемнение*/
 }
 
 /* селектор для кнопки расчета выражения (=) */
-.my-btn.execute { 
+.my-btn-principalities.execute-principalities { 
   width: 110px;                /* сделаем кнопку шире других */
   background: #38393d;         /* темно-синий */
   color: #ffffff;              /* белый текст */
   border-color: #38393d;
 }
 
-.my-btn.execute:hover {
+.my-btn-principalities.execute-principalities:hover {
   background: #ed2324;         /* чуть светлее при наведении */
   border-color: #ed2324;       /* голубая обводка при наведении */
 }
 
 /* селектор для поля вывода результата */
-.result { 
+.result-principalities { 
   width: 509px;
   height: 50px;
   margin-bottom: 15px;         /* отступ снизу */
@@ -82,19 +82,19 @@
 }
 
 /* для кнопки backspace */
-.my-btn.back{
+.my-btn-principalities.back-principalities{
   background: linear-gradient(to right, #7400e9, #65c8ff);
   color: white;  
   border: none;  
   transition: opacity 0.3s ease; /*плавность*/
   width: 132px;
 }
-.my-btn.back:hover {
+.my-btn-principalities.back-principalities:hover {
   background: linear-gradient(to right, #65c8ff, #7400e9);  
   opacity: 0.9;  /*лёгкое затемнение*/
 }
 
-.main {
+.main-principalities {
   padding: 12px; /* внутренний отступ */
   width: 520px;
   background-color:'white';
