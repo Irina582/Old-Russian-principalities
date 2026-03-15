@@ -96,7 +96,7 @@ export class CarouselComponentPrincipalities {
         rulers.forEach((ruler, index) => {
             slides += `
                 <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                    <img src="${ruler.image}" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="${ruler.name}">
+                    <img src="${ruler.image}" class="d-block w-100" style="height: 700px; object-fit: cover;" alt="${ruler.name}">
                     <div class="carousel-caption d-none d-md-block" style="background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px; bottom: 50px;">
                         <h3>${ruler.name}</h3>
                         <h5>Период правления: ${ruler.period}</h5>
