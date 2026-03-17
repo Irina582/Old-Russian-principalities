@@ -290,4 +290,61 @@ window.onload = function(){
         // Показываем результат на экране
         outputElementPrincipalities.innerHTML = aPrincipalities
     }
+    
+    // Перевод даты из григорианского календаря в юлианский
+    document.getElementById("btn_date_convert-principalities").onclick = function() {
+        let inputDate = outputElementPrincipalities.innerHTML;
+        
+        // в формате 8 цифр
+        if (inputDate.length === 8 && !isNaN(inputDate)) {
+            let day = parseInt(inputDate.substring(0, 2));
+            let month = parseInt(inputDate.substring(2, 4));
+            let year = parseInt(inputDate.substring(4, 8));
+            
+            if (year <= 1600) {
+                outputElementPrincipalities.innerHTML = "Год должен быть > 1600";
+                return;
+            }
+            if (month > 12){
+                outputElementPrincipalities.innerHTML = "Месяц должен быть <= 12";
+                return;
+            }
+            
+            // Разница для 1900> годов
+            let difference = 13;
+            
+            // Разница для всех периодов
+            if (year < 1700) difference = 10;
+            else if (year < 1800) difference = 11;
+            else if (year < 1900) difference = 12;
+            else if (year < 2100) difference = 13;
+            
+            // Рассчитываем юлианскую дату
+            let julianDay = day - difference;
+            let julianMonth = month;
+            let julianYear = year;
+            
+            // Если день стал <= 0, переходим на предыдущий месяц
+            if (julianDay <= 0) {
+                julianMonth--;
+                if (julianMonth < 1) {
+                    julianMonth = 12;
+                    julianYear--;
+                }
+                
+                // Получаем последний день предыдущего месяца
+                let lastDayPrevMonth = new Date(julianYear, julianMonth, 0).getDate();
+                julianDay = lastDayPrevMonth + julianDay;
+            }
+            
+            let resultDay = julianDay.toString().padStart(2, '0');
+            let resultMonth = julianMonth.toString().padStart(2, '0');
+            let resultYear = julianYear.toString();
+            
+            outputElementPrincipalities.innerHTML = `${resultDay}${resultMonth}${resultYear}`;
+        } 
+        else {
+            outputElementPrincipalities.innerHTML = "ДДММГГГГ";
+        }
+    }
 };
