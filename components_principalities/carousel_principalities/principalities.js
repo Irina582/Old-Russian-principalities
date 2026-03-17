@@ -8,7 +8,7 @@ export class CarouselComponentPrincipalities {
         return [
             {
                 name: "Даниил Александрович",
-                period: "1276–1303",
+                period: "1221–1303",
                 description: "Первый удельный князь Московский",
                 image: "https://pic.rutubelist.ru/video/d3/e6/d3e6dae8d96798d1afe1744a968f04fb.jpg"
             },
@@ -28,7 +28,7 @@ export class CarouselComponentPrincipalities {
                 name: "Семён Иванович Гордый",
                 period: "1340–1353",
                 description: "Продолжил политику отца",
-                image: "https://avatars.dzeninfra.ru/get-zen_doc/271828/pub_681365f47650c106adb5b1b1_6813665337ab0a2d307f162e/scale_1200"
+                image: "https://vimpel-v.com/uploads/posts/2023-09/1694002498_simeon-gordyj.jpg"
             },
             {
                 name: "Иван II Иванович Красный",
@@ -62,7 +62,7 @@ export class CarouselComponentPrincipalities {
             },
             {
                 name: "Дмитрий Юрьевич Шемяка",
-                period: "1446–1447",
+                period: "1441–1447",
                 description: "Проиграл междоусобную войну",
                 image: "https://24smi.org/public/media/resize/800x-/2018/5/8/6_Ks3JcfD.jpg"
             },
@@ -96,7 +96,7 @@ export class CarouselComponentPrincipalities {
         rulers.forEach((ruler, index) => {
             slides += `
                 <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                    <img src="${ruler.image}" class="d-block w-100" style="height: 700px; object-fit: cover;" alt="${ruler.name}">
+                    <img src="${ruler.image}" class="d-block w-100" style="height: 600px; object-fit: cover;" alt="${ruler.name}">
                     <div class="carousel-caption d-none d-md-block" style="background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px; bottom: 50px;">
                         <h3>${ruler.name}</h3>
                         <h5>Период правления: ${ruler.period}</h5>
