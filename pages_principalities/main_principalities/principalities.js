@@ -141,7 +141,7 @@ export class MainPagePrincipalities {
                                         <div class="border p-3">
                                             <h5>Качественная разница</h5>
                                             <p class="text-muted small">Анализ всех годов правления</p>
-                                            <button class="btn btn-primary mb-3" id="first-function-btn_principalities">
+                                            <button class="btn btn-danger mb-3" id="first-function-btn_principalities">
                                                 Применить
                                             </button>
                                             <div id="first-function-output_principalities"></div>
@@ -153,7 +153,7 @@ export class MainPagePrincipalities {
                                             <h5>Проверка года</h5>
                                             <p class="text-muted small">Введите год для проверки на палиндром</p>
                                             <input type="text" class="form-control mb-2" id="year-input_principalities" placeholder="например 1221">
-                                            <button class="btn btn-primary mb-3" id="second-function-btn_principalities">
+                                            <button class="btn btn-danger mb-3" id="second-function-btn_principalities">
                                                 Проверить
                                             </button>
                                             <div id="second-function-output_principalities"></div>
@@ -164,7 +164,7 @@ export class MainPagePrincipalities {
                                         <div class="border p-3">
                                             <h5>Поиск по палиндромам</h5>
                                             <p class="text-muted small">Найти князей с годами-палиндромами</p>
-                                            <button class="btn btn-primary mb-3" id="third-function-btn_principalities">
+                                            <button class="btn btn-danger mb-3" id="third-function-btn_principalities">
                                                 Найти
                                             </button>
                                             <div id="third-function-output_principalities"></div>
