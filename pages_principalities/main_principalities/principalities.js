@@ -132,7 +132,7 @@ export class MainPagePrincipalities {
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header bg-danger text-white">
                                 <h3>Исторический анализ периодов правления</h3>
                             </div>
                             <div class="card-body">
