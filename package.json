@@ -1,0 +1,33 @@
+{
+  "name": "sem4_labs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src_principalities/index_principalities.js",
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "express": "^5.2.1"
+  },
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "nodemon --watch src src_principalities/index_principalities.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Irina582/Zeleneva_labs_sem4.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Irina582/Zeleneva_labs_sem4/issues"
+  },
+  "homepage": "https://github.com/Irina582/Zeleneva_labs_sem4#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.5.0",
+    "nodemon": "^3.1.14",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
