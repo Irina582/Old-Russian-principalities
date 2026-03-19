@@ -1,9 +1,9 @@
 export class CarouselComponentPrincipalities {
     constructor(parent) {
         this.parent = parent;
+        this.rulers = this.getRulersData();
     }
 
-    // Метод для получения данных (можно потом вынести в отдельный файл)
     getRulersData() {
         return [
             {
@@ -69,13 +69,33 @@ export class CarouselComponentPrincipalities {
             {
                 name: "Междоусобная война",
                 period: "1425–1453",
-                description: "Борьба за великокняжеский престол между потомками Дмитрия Донского",
+                description: "Борьба за великокняжеский престол",
                 image: "https://ic.pics.livejournal.com/d_rebyakov/46177865/40717/40717_original.jpg"
             }
         ];
     }
 
-    // Метод для создания индикаторов (точечек)
+    // Добавление князя (копия первого)
+    addRuler() {
+        const firstRuler = { ...this.rulers[0] };
+        firstRuler.name = firstRuler.name + " (копия)";
+        firstRuler.description = "Копия " + firstRuler.description;
+        this.rulers.push(firstRuler);
+        this.refreshCarousel();
+    }
+
+    // Удаление князя
+    deleteRuler(index) {
+        this.rulers.splice(index, 1);
+        this.refreshCarousel();
+    }
+
+    // Перерисовка карусели
+    refreshCarousel() {
+        this.parent.innerHTML = '';
+        this.render();
+    }
+
     getIndicators(rulers) {
         let indicators = '';
         rulers.forEach((_, index) => {
@@ -90,17 +110,25 @@ export class CarouselComponentPrincipalities {
         return indicators;
     }
 
-    // Метод для создания слайдов
     getSlides(rulers) {
         let slides = '';
         rulers.forEach((ruler, index) => {
             slides += `
                 <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                    <img src="${ruler.image}" class="d-block w-100" style="height: 600px; object-fit: cover;" alt="${ruler.name}">
+                    <img src="${ruler.image}" class="d-block w-100" style="height: 650px; object-fit: cover;" alt="${ruler.name}">
                     <div class="carousel-caption d-none d-md-block" style="background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px; bottom: 50px;">
                         <h3>${ruler.name}</h3>
                         <h5>Период правления: ${ruler.period}</h5>
                         <p>${ruler.description}</p>
+
+                        <div class="mt-3">
+                            <button class="btn btn-danger delete-ruler-btn" data-index="${index}">
+                                Удалить
+                            </button>
+                            <button class="btn btn-primary" id="ruler-detail-${index}">
+                                Подробнее
+                            </button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -108,31 +136,25 @@ export class CarouselComponentPrincipalities {
         return slides;
     }
 
-    // Главный метод, который собирает всю карусель
     getHTML() {
-        const rulers = this.getRulersData();
+        const rulers = this.rulers;
         const indicators = this.getIndicators(rulers);
         const slides = this.getSlides(rulers);
 
         return `
             <div id="rulersCarousel" class="carousel slide" data-bs-ride="carousel">
-                <!-- Индикаторы (точечки) -->
                 <div class="carousel-indicators">
                     ${indicators}
                 </div>
-                
-                <!-- Слайды -->
                 <div class="carousel-inner">
                     ${slides}
                 </div>
-                
-                <!-- Стрелки навигации -->
                 <button class="carousel-control-prev" type="button" data-bs-target="#rulersCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 20px;"></span>
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Предыдущий</span>
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#rulersCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 20px;"></span>
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Следующий</span>
                 </button>
             </div>
@@ -142,5 +164,29 @@ export class CarouselComponentPrincipalities {
     render() {
         const html = this.getHTML();
         this.parent.insertAdjacentHTML('beforeend', html);
+        
+        // Обработчики на кнопки удаления
+        const deleteButtons = document.querySelectorAll('.delete-ruler-btn');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                const index = button.getAttribute('data-index');
+                this.deleteRuler(parseInt(index));
+            });
+        });
+        
+        // Обработчики на кнопки подробнее
+        this.rulers.forEach((_, index) => {
+            const btn = document.getElementById(`ruler-detail-${index}`);
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    const event = new CustomEvent('ruler-click', { 
+                        detail: { rulerIndex: index } 
+                    });
+                    document.dispatchEvent(event);
+                });
+            }
+        });
     }
 }

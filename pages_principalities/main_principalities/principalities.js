@@ -17,7 +17,7 @@ export class MainPagePrincipalities {
             { name: "Василий I Дмитриевич", start: 1389, end: 1425 },
             { name: "Василий II Васильевич Тёмный", start: 1425, end: 1433 },
             { name: "Юрий Дмитриевич", start: 1433, end: 1433 },
-            { name: "Дмитрий Юрьевич Шемяка", start: 1441, end: 1447 }
+            { name: "Дмитрий Юрьевич Шемяка", start: 1441, end: 1447 } 
         ];
     }
 
@@ -127,6 +127,14 @@ export class MainPagePrincipalities {
             <div class="container mt-4">
                 <h1 class="text-center mb-4">Правители Московского княжества</h1>
                 
+                <div class="row mb-3">
+                    <div class="col-12 text-center">
+                        <button class="btn btn-success" id="add-ruler-btn_principalities">
+                            + Добавить князя
+                        </button>
+                    </div>
+                </div>
+
                 <div id="carousel-container"></div>
                 
                 <div class="row mt-4">
@@ -184,9 +192,28 @@ export class MainPagePrincipalities {
         const carousel = new CarouselComponentPrincipalities(carouselContainer);
         carousel.render(); // создаю карусель
         
+        // Кнопка добавления
+        document.getElementById('add-ruler-btn_principalities').addEventListener('click', () => {
+            carousel.addRuler();
+        });
+
+        document.addEventListener('ruler-click', (event) => {
+            const rulerIndex = event.detail.rulerIndex;
+            this.openRulerPage(rulerIndex);
+        });
         // Навешиваю обработчики на кнопки
         document.getElementById('first-function-btn_principalities').addEventListener('click', () => this.useFirstFunction());
         document.getElementById('second-function-btn_principalities').addEventListener('click', () => this.useSecondFunction());
         document.getElementById('third-function-btn_principalities').addEventListener('click', () => this.useThirdFunction());
+        
+    }
+
+    // Метод для открытия страницы с князем
+    openRulerPage(index) {
+        import('../../pages_principalities/product_principalities/principalities.js').then(module => {
+            const ProductPagePrincipalities = module.ProductPagePrincipalities;
+            const productPage = new ProductPagePrincipalities(this.parent, index + 1);
+            productPage.render();
+        });
     }
 }
