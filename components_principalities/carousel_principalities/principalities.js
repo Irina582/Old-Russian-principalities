@@ -4,7 +4,7 @@ export class CarouselComponentPrincipalities {
         this.rulers = this.getRulersData();
     }
 
-    getRulersData() {
+    getRulersData() { //!!!!!!!!!!!!!!!!!!!!!!!! убрать данные из компонента
         return [
             {
                 name: "Даниил Александрович",
@@ -96,7 +96,7 @@ export class CarouselComponentPrincipalities {
         this.render();
     }
 
-    getIndicators(rulers) {
+    getIndicators(rulers) { // !!!!!!!!!!!!!!!!!!!!!!!!узнать что это ваще такое
         let indicators = '';
         rulers.forEach((_, index) => {
             indicators += `
@@ -110,7 +110,7 @@ export class CarouselComponentPrincipalities {
         return indicators;
     }
 
-    getSlides(rulers) {
+    getSlides(rulers) { // !!!!!!!!!!!!!!!!!!!!!!!!вынести в компоненту: элемент карусели
         let slides = '';
         rulers.forEach((ruler, index) => {
             slides += `

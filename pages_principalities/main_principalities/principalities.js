@@ -7,7 +7,7 @@ export class MainPagePrincipalities {
     }
 
     getRulersData() { // метод, вернёт мне массив с датами
-        return [
+        return [ // !!!!!!!!!!!!!!!!!!!!!!!! скорее всего сюда тот массив гетРулерс вместо этого. Следовательно переделать методы качественной разницы и т д
             { name: "Даниил Александрович", start: 1221, end: 1303 },
             { name: "Юрий Данилович", start: 1303, end: 1325 },
             { name: "Иван I Данилович Калита", start: 1325, end: 1340 },
@@ -22,7 +22,7 @@ export class MainPagePrincipalities {
     }
 
     // Первая функция - качественная разница
-    useFirstFunction() { 
+    useFirstFunction() { // !!!!!!!!!!!!!!!!!!!!!!!!!переделать 
         const rulers = this.getRulersData(); // массив князей с началами и окончаниями
         const allYears = []; // массив годов
         
@@ -51,7 +51,7 @@ export class MainPagePrincipalities {
     }
 
     // Вторая функция - проверка конкретного года
-    useSecondFunction() {
+    useSecondFunction() { // !!!!!!!!!!!!!!!!!!!!!!!! тоже переделать
         const yearInput = document.getElementById('year-input_principalities').value;
         
         if (!yearInput) { // если год не ввели
@@ -82,7 +82,7 @@ export class MainPagePrincipalities {
     }
 
     // Третья функция - поиск князей с годами-палиндромами
-    useThirdFunction() { // метод вызывается при нажатии на 3-ю кнопку "Найти"
+    useThirdFunction() { // метод вызывается при нажатии на 3-ю кнопку "Найти" !!!!!!!!!!!!!!!!!!!!!!!! переделать
         const rulers = this.getRulersData(); // опять массив с князьями и годами
         
         const rulersWithPalindrom = rulers.filter(ruler => 
