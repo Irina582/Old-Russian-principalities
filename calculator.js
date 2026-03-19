@@ -305,8 +305,12 @@ window.onload = function(){
                 outputElementPrincipalities.innerHTML = "Год должен быть > 1600";
                 return;
             }
-            if (month > 12){
-                outputElementPrincipalities.innerHTML = "Месяц должен быть <= 12";
+            if (month > 12 || month === 0){
+                outputElementPrincipalities.innerHTML = "Месяц должен быть <= 12 и больше 0";
+                return;
+            }
+            if (day === 0 || day > 31) {
+                outputElementPrincipalities.innerHTML = "Введите корректную дату";
                 return;
             }
             
