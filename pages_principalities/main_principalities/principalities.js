@@ -1,32 +1,30 @@
+// pages_principalities/main_principalities/principalities.js
+
 import { CarouselComponentPrincipalities } from "../../components_principalities/carousel_principalities/principalities.js";
 import { Qualitative_difference_principalities, Polindrom_principalities } from "../../functions_principalities/functions_principalities.js";
+import { rulersData } from "../../data_principalities/principalities.js";
 
 export class MainPagePrincipalities {
     constructor(parent) {
         this.parent = parent;
+        this.fullRulersData = rulersData; // полные данные
     }
 
-    getRulersData() { // метод, вернёт мне массив с датами
-        return [ // !!!!!!!!!!!!!!!!!!!!!!!! скорее всего сюда тот массив гетРулерс вместо этого. Следовательно переделать методы качественной разницы и т д
-            { name: "Даниил Александрович", start: 1221, end: 1303 },
-            { name: "Юрий Данилович", start: 1303, end: 1325 },
-            { name: "Иван I Данилович Калита", start: 1325, end: 1340 },
-            { name: "Семён Иванович Гордый", start: 1340, end: 1353 },
-            { name: "Иван II Иванович Красный", start: 1353, end: 1359 },
-            { name: "Дмитрий Иванович Донской", start: 1359, end: 1389 },
-            { name: "Василий I Дмитриевич", start: 1389, end: 1425 },
-            { name: "Василий II Васильевич Тёмный", start: 1425, end: 1433 },
-            { name: "Юрий Дмитриевич", start: 1433, end: 1433 },
-            { name: "Дмитрий Юрьевич Шемяка", start: 1441, end: 1447 } 
-        ];
+    // Метод для функций анализа - возвращает только имена и годы
+    getRulersData() {
+        return this.fullRulersData.map(ruler => ({
+            name: ruler.name,
+            start: ruler.start,
+            end: ruler.end
+        }));
     }
 
     // Первая функция - качественная разница
-    useFirstFunction() { // !!!!!!!!!!!!!!!!!!!!!!!!!переделать 
-        const rulers = this.getRulersData(); // массив князей с началами и окончаниями
-        const allYears = []; // массив годов
+    useFirstFunction() { 
+        const rulers = this.getRulersData();
+        const allYears = [];
         
-        rulers.forEach(ruler => { // проходим по каждому князю,добавляем его год начала и окончания в массив годов
+        rulers.forEach(ruler => {
             allYears.push(ruler.start);
             allYears.push(ruler.end);
         });
@@ -39,7 +37,7 @@ export class MainPagePrincipalities {
         const max1 = sortedYears[sortedYears.length - 1];
         const max2 = sortedYears[sortedYears.length - 2];
         
-        const outputDiv = document.getElementById('first-function-output_principalities'); // ищу div куда выводить результат
+        const outputDiv = document.getElementById('first-function-output_principalities');
         outputDiv.innerHTML = ` 
             <div class="p-3 bg-light">
                 <p>Всего годов: ${allYears.length}</p>
@@ -47,28 +45,27 @@ export class MainPagePrincipalities {
                 <p>Самые большие годы: ${max1} и ${max2}</p>
                 <p>Результат: (${max1} * ${max2}) - (${min1} * ${min2}) = ${result}</p>
             </div>
-        `; // вставила html с результатами
+        `;
     }
 
     // Вторая функция - проверка конкретного года
-    useSecondFunction() { // !!!!!!!!!!!!!!!!!!!!!!!! тоже переделать
+    useSecondFunction() {
         const yearInput = document.getElementById('year-input_principalities').value;
         
-        if (!yearInput) { // если год не ввели
+        if (!yearInput) {
             alert('Введите год');
             return;
         }
         
         const isPalindrom = Polindrom_principalities(yearInput);
         
-        const rulers = this.getRulersData(); // получаю список князей с началами и окончаниями
+        const rulers = this.getRulersData();
         const foundRuler = rulers.find(r => 
             r.start.toString() === yearInput || r.end.toString() === yearInput
-        ); // ищу князя, у которого такой либо год начала либо год окончания
+        );
         
-        const outputDiv = document.getElementById('second-function-output_principalities'); // div для вывода
+        const outputDiv = document.getElementById('second-function-output_principalities');
         
-        // формирую сообщение
         let message = `<div class="p-3 bg-light">`;
         message += `<p>Год ${yearInput} - ${isPalindrom ? 'является' : 'не является'} палиндромом</p>`;
         
@@ -78,26 +75,26 @@ export class MainPagePrincipalities {
         }
         
         message += `</div>`;
-        outputDiv.innerHTML = message; // вывожу сообщение
+        outputDiv.innerHTML = message;
     }
 
     // Третья функция - поиск князей с годами-палиндромами
-    useThirdFunction() { // метод вызывается при нажатии на 3-ю кнопку "Найти" !!!!!!!!!!!!!!!!!!!!!!!! переделать
-        const rulers = this.getRulersData(); // опять массив с князьями и годами
+    useThirdFunction() {
+        const rulers = this.getRulersData();
         
         const rulersWithPalindrom = rulers.filter(ruler => 
             Polindrom_principalities(ruler.start.toString()) || 
             Polindrom_principalities(ruler.end.toString())
-        ); // находим князей у которых какой-либо год полиндром
+        );
         
-        const outputDiv = document.getElementById('third-function-output_principalities'); // div для вывода
+        const outputDiv = document.getElementById('third-function-output_principalities');
         
         if (rulersWithPalindrom.length === 0) {
             outputDiv.innerHTML = `<div class="p-3 bg-light">Князья с годами-палиндромами не найдены</div>`;
             return;
         }
         
-        let html = `<div class="p-3 bg-light">`; // создаём переменную html в которую будем собирать текст
+        let html = `<div class="p-3 bg-light">`;
         
         rulersWithPalindrom.forEach(ruler => {
             const startIsPal = Polindrom_principalities(ruler.start.toString());
@@ -121,7 +118,7 @@ export class MainPagePrincipalities {
     }
 
     render() {
-        this.parent.innerHTML = ''; // очищаю родительский элемент
+        this.parent.innerHTML = '';
         
         const html = `
             <div class="container mt-4">
@@ -186,11 +183,11 @@ export class MainPagePrincipalities {
             </div>
         `;
         
-        this.parent.insertAdjacentHTML('beforeend', html); // вставляю этот элемент на страницу
+        this.parent.insertAdjacentHTML('beforeend', html);
         
         const carouselContainer = document.getElementById('carousel-container');
-        const carousel = new CarouselComponentPrincipalities(carouselContainer);
-        carousel.render(); // создаю карусель
+        const carousel = new CarouselComponentPrincipalities(carouselContainer, this.fullRulersData);
+        carousel.render();
         
         // Кнопка добавления
         document.getElementById('add-ruler-btn_principalities').addEventListener('click', () => {
@@ -201,18 +198,18 @@ export class MainPagePrincipalities {
             const rulerIndex = event.detail.rulerIndex;
             this.openRulerPage(rulerIndex);
         });
+        
         // Навешиваю обработчики на кнопки
         document.getElementById('first-function-btn_principalities').addEventListener('click', () => this.useFirstFunction());
         document.getElementById('second-function-btn_principalities').addEventListener('click', () => this.useSecondFunction());
         document.getElementById('third-function-btn_principalities').addEventListener('click', () => this.useThirdFunction());
-        
     }
 
     // Метод для открытия страницы с князем
     openRulerPage(index) {
         import('../../pages_principalities/product_principalities/principalities.js').then(module => {
             const ProductPagePrincipalities = module.ProductPagePrincipalities;
-            const productPage = new ProductPagePrincipalities(this.parent, index + 1);
+            const productPage = new ProductPagePrincipalities(this.parent, index);
             productPage.render();
         });
     }
