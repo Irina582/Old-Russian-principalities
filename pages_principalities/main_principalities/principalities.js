@@ -199,7 +199,7 @@ export class MainPagePrincipalities {
             this.openRulerPage(rulerIndex);
         });
         
-        // Навешиваю обработчики на кнопки
+        // обработчики на кнопки
         document.getElementById('first-function-btn_principalities').addEventListener('click', () => this.useFirstFunction());
         document.getElementById('second-function-btn_principalities').addEventListener('click', () => this.useSecondFunction());
         document.getElementById('third-function-btn_principalities').addEventListener('click', () => this.useThirdFunction());
