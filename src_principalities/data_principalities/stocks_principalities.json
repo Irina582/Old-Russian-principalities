@@ -1,26 +1,62 @@
 [
   {
     "id": 1,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
-    "title": "Король 1",
-    "text": "Такой акции вы еще не видели 1"
+    "src": "https://pic.rutubelist.ru/video/d3/e6/d3e6dae8d96798d1afe1744a968f04fb.jpg",
+    "title": "Даниил Александрович",
+    "text": "Первый удельный князь Московский (1221–1303). Сын Александра Невского, основатель династии московских князей."
   },
   {
     "id": 2,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
-    "title": "Акция 2",
-    "text": "Такой акции вы еще не видели 2"
+    "src": "https://avatars.mds.yandex.net/i?id=7407f04c8423986f4f2e49f7cedeabd3eec11f2f-4539046-images-thumbs&n=13",
+    "title": "Юрий Данилович",
+    "text": "Вел борьбу за великое княжение (1303–1325). Женился на сестре хана Узбека."
   },
   {
     "id": 3,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
-    "title": "Король 3",
-    "text": "Такой акции вы еще не видели 3"
+    "src": "https://kulturologia.ru/files/u29141/2914117110.jpg",
+    "title": "Иван I Данилович Калита",
+    "text": "Собиратель русских земель (1325–1340). Получил право сбора дани для Орды."
   },
   {
     "id": 4,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
-    "title": "Акция 4",
-    "text": "Такой акции вы еще не видели 4"
+    "src": "https://vimpel-v.com/uploads/posts/2023-09/1694002498_simeon-gordyj.jpg",
+    "title": "Семён Иванович Гордый",
+    "text": "Продолжил политику отца (1340–1353). Первым стал называться 'великим князем всея Руси'."
+  },
+  {
+    "id": 5,
+    "src": "https://cdnstatic.rg.ru/uploads/images/2024/11/13/ivan-krasnyi-1200_a18.jpg",
+    "title": "Иван II Иванович Красный",
+    "text": "Кроткий и милостивый правитель (1353–1359). Прозвище 'Красный' означало 'красивый'."
+  },
+  {
+    "id": 6,
+    "src": "https://www.pravmir.ru/wp-content/uploads/2020/10/donskij.jpeg",
+    "title": "Дмитрий Иванович Донской",
+    "text": "Победитель в Куликовской битве (1359–1389). Впервые передал великое княжение сыну без ханского ярлыка."
+  },
+  {
+    "id": 7,
+    "src": "https://budzma.org/upload/resize_cache/medialibrary/9a4/820_654_1/wgz8igk7q2he49zakd5jxlwror6b670p.jpg",
+    "title": "Василий I Дмитриевич",
+    "text": "Присоединил Нижегородское княжество (1389–1425). Успешно боролся с Литвой и Ордой."
+  },
+  {
+    "id": 8,
+    "src": "https://ic.pics.livejournal.com/pantv/14908973/12061325/12061325_800.jpg",
+    "title": "Василий II Васильевич Тёмный",
+    "text": "Ослеплён в ходе междоусобной войны (1425–1462). Несмотря на слепоту, укрепил власть Москвы."
+  },
+  {
+    "id": 9,
+    "src": "https://ruhistor.ru/wp-content/uploads/2022/04/yurij-dmitrievich-galickij-i-zvenigorodskij-768x483.jpg",
+    "title": "Юрий Дмитриевич",
+    "text": "Сын Дмитрия Донского (1433). Боролся за великокняжеский престол с племянником Василием II."
+  },
+  {
+    "id": 10,
+    "src": "https://24smi.org/public/media/resize/800x-/2018/5/8/6_Ks3JcfD.jpg",
+    "title": "Дмитрий Юрьевич Шемяка",
+    "text": "Главный противник Василия Тёмного (1441–1447). Ослепил Василия II, дважды захватывал Москву."
   }
 ]
