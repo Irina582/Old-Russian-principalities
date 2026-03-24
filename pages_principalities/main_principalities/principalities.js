@@ -1,5 +1,3 @@
-// pages_principalities/main_principalities/principalities.js
-
 import { CarouselComponentPrincipalities } from "../../components_principalities/carousel_principalities/principalities.js";
 import { Qualitative_difference_principalities, Polindrom_principalities } from "../../functions_principalities/functions_principalities.js";
 import { rulersData } from "../../data_principalities/principalities.js";
@@ -131,6 +129,16 @@ export class MainPagePrincipalities {
                         </button>
                     </div>
                 </div>
+                
+                <div class="row mb-3">
+                    <div class="col-12 text-center">
+                        <input type="text" class="form-control w-50 mx-auto" id="filter-input_principalities" placeholder="Введите имя князя для фильтрации">
+                        <div class="mt-2">
+                            <button class="btn btn-outline-primary" id="filter-btn_principalities">Применить фильтр</button>
+                            <button class="btn btn-outline-secondary" id="reset-filter-btn_principalities">Сбросить фильтр</button>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="carousel-container"></div>
                 
@@ -186,12 +194,34 @@ export class MainPagePrincipalities {
         this.parent.insertAdjacentHTML('beforeend', html);
         
         const carouselContainer = document.getElementById('carousel-container');
-        const carousel = new CarouselComponentPrincipalities(carouselContainer, this.fullRulersData);
-        carousel.render();
+        this.carousel = new CarouselComponentPrincipalities(carouselContainer, this.fullRulersData);
+        this.carousel.render();
+        
+        // Фильтрация
+        document.getElementById('filter-btn_principalities').addEventListener('click', () => {
+            const filterText = document.getElementById('filter-input_principalities').value.toLowerCase().trim();
+            if (filterText === '') return;
+            
+            const filteredRulers = this.fullRulersData.filter(ruler => 
+                ruler.name.toLowerCase().includes(filterText)
+            );
+            
+            carouselContainer.innerHTML = '';
+            this.carousel = new CarouselComponentPrincipalities(carouselContainer, filteredRulers);
+            this.carousel.render();
+        });
+        
+        // Сброс фильтра
+        document.getElementById('reset-filter-btn_principalities').addEventListener('click', () => {
+            document.getElementById('filter-input_principalities').value = '';
+            carouselContainer.innerHTML = '';
+            this.carousel = new CarouselComponentPrincipalities(carouselContainer, this.fullRulersData);
+            this.carousel.render();
+        });
         
         // Кнопка добавления
         document.getElementById('add-ruler-btn_principalities').addEventListener('click', () => {
-            carousel.addRuler();
+            this.carousel.addRuler();
         });
 
         document.addEventListener('ruler-click', (event) => {

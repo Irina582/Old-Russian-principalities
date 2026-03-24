@@ -1,5 +1,3 @@
-// components_principalities/carousel_principalities/principalities.js
-
 import { SlideComponentPrincipalities } from "../slide_principalities/principalities.js";
 
 export class CarouselComponentPrincipalities {
