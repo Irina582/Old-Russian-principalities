@@ -1,4 +1,4 @@
-import { Qualitative_difference_principalities, Polindrom_principalities } from "../../functions_principalities/functions_principalities.js";
+import { CarouselComponentPrincipalities } from "../../components_principalities/carousel_principalities/principalities.js";
 import { rulersData } from "../../data_principalities/principalities.js";
 
 export class MainPagePrincipalities {
@@ -8,14 +8,6 @@ export class MainPagePrincipalities {
         this.filteredData = [...rulersData];
     }
 
-    getRulersData() {
-        return this.filteredData.map(principality => ({
-            name: principality.name,
-            start: principality.start,
-            end: principality.end
-        }));
-    }
-
     // Добавление княжества (копия первого)
     addRuler() {
         const firstRuler = this.fullRulersData[0];
@@ -23,11 +15,9 @@ export class MainPagePrincipalities {
             ...firstRuler,
             name: firstRuler.name + " (копия)",
             description: "Копия " + firstRuler.description,
-            fullDescription: "Копия " + firstRuler.fullDescription,
             start: firstRuler.start,
             end: firstRuler.end,
-            image: firstRuler.image,
-            model3d: firstRuler.model3d
+            image: firstRuler.image
         };
         
         this.fullRulersData.push(newRuler);
@@ -46,47 +36,6 @@ export class MainPagePrincipalities {
             this.fullRulersData.splice(actualIndex, 1);
             this.filteredData = [...this.fullRulersData];
             this.renderCards(this.filteredData);
-        }
-    }
-
-    // Качественная разница для ОДНОЙ карточки
-    calculateCardDifference(principality, index) {
-        const years = [principality.start, principality.end];
-        const result = Qualitative_difference_principalities(years);
-        
-        const sortedYears = [...years].sort((a, b) => a - b);
-        const min1 = sortedYears[0];
-        const min2 = sortedYears[1];
-        const max1 = sortedYears[sortedYears.length - 1];
-        const max2 = sortedYears[sortedYears.length - 2];
-        
-        const outputDiv = document.getElementById(`card-diff-output-${index}`);
-        if (outputDiv) {
-            outputDiv.innerHTML = `
-                <div class="alert alert-info p-2 mt-2" style="font-size: 14px;">
-                    (${max1} x ${max2}) - (${min1} x ${min2}) = ${result}
-                </div>
-            `;
-        }
-    }
-
-    // Проверка на палиндром для одной карточки
-    checkCardPalindrome(principality, index) {
-        const startIsPal = Polindrom_principalities(principality.start.toString());
-        const endIsPal = Polindrom_principalities(principality.end.toString());
-        
-        const outputDiv = document.getElementById(`card-palindrome-output-${index}`);
-        
-        if (outputDiv && (startIsPal || endIsPal)) {
-            let message = '<div class="alert alert-success p-2 mt-2" style="font-size: 14px;">✅ Годы-палиндромы:<br>';
-            if (startIsPal) {
-                message += `Год начала ${principality.start}<br>`;
-            }
-            if (endIsPal) {
-                message += `Год окончания ${principality.end}`;
-            }
-            message += '</div>';
-            outputDiv.innerHTML = message;
         }
     }
 
@@ -137,7 +86,6 @@ export class MainPagePrincipalities {
             }
             .btn-delete:hover {
                 background-color: #c82333 !important;
-                border-color: #bd2130 !important;
             }
             .cards-grid {
                 display: flex;
@@ -228,18 +176,10 @@ export class MainPagePrincipalities {
                         </p>
                         
                         <div class="text-center mb-3">
-                            <button class="btn btn-card diff-card-btn" data-index="${index}">
-                                Качественная разница
-                            </button>
-                            <button class="btn btn-card palindrome-check-btn" data-index="${index}">
-                                Палиндром
-                            </button>
                             <button class="btn btn-delete delete-card-btn" data-index="${index}">
                                 Удалить
                             </button>
                         </div>
-                        <div id="card-diff-output-${index}"></div>
-                        <div id="card-palindrome-output-${index}"></div>
                     </div>
                     <div class="card-footer bg-transparent text-center">
                         <button class="btn btn-custom view-details" data-index="${index}">
@@ -250,18 +190,6 @@ export class MainPagePrincipalities {
             `;
             
             container.appendChild(card);
-            
-            const diffBtn = card.querySelector('.diff-card-btn');
-            diffBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.calculateCardDifference(principality, index);
-            });
-            
-            const palindromeBtn = card.querySelector('.palindrome-check-btn');
-            palindromeBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.checkCardPalindrome(principality, index);
-            });
             
             const deleteBtn = card.querySelector('.delete-card-btn');
             deleteBtn.addEventListener('click', (e) => {
