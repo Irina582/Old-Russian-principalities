@@ -3,7 +3,6 @@ import { ProductComponentPrincipalities } from "../../components_principalities/
 import { MainPagePrincipalities } from "../main_principalities/principalities.js";
 import { rulersData } from "../../data_principalities/principalities.js";
 
-// Импортируем Three.js через importmap (как в твоём проекте)
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -15,24 +14,24 @@ export class ProductPagePrincipalities {
     }
 
     getData() {
-        const ruler = rulersData[this.id];
+        const principality = rulersData[this.id];
         
-        if (!ruler) {
+        if (!principality) {
             return {
                 id: this.id,
                 src: "",
-                title: "Князь не найден",
-                text: "Извините, информация о данном князе отсутствует",
+                title: "Княжество не найдено",
+                text: "Извините, информация о данном княжестве отсутствует",
                 model3d: null
             };
         }
         
         return {
             id: this.id,
-            src: ruler.image,
-            title: ruler.name,
-            text: `${ruler.fullDescription}\n\nПериод правления: ${ruler.period}`,
-            model3d: ruler.model3d || null
+            src: principality.image,
+            title: principality.name,
+            text: `${principality.fullDescription}\n\nПериод существования: ${principality.start} - ${principality.end}`,
+            model3d: principality.model3d || null
         };
     }
 
@@ -70,19 +69,16 @@ export class ProductPagePrincipalities {
         const html = this.getHTML();
         this.parent.insertAdjacentHTML('beforeend', html);
 
-        // Кнопка назад
         const backButtonContainer = document.getElementById('back-button-container');
         const backButton = new BackButtonComponentPrincipalities(backButtonContainer);
         backButton.render(this.clickBack.bind(this));
 
         const data = this.getData();
         
-        // Рендерим текстовую карточку
         const textContainer = document.getElementById('text-content');
         const stock = new ProductComponentPrincipalities(textContainer);
         stock.render(data);
         
-        // Если есть 3D модель - загружаем её
         if (data.model3d) {
             setTimeout(() => {
                 this.init3DViewer(data.model3d);
@@ -93,7 +89,6 @@ export class ProductPagePrincipalities {
     init3DViewer(modelPath) {
         const canvas = document.getElementById('viewer-canvas');
         
-        // Фиксированный размер
         canvas.width = 400;
         canvas.height = 400;
         
@@ -113,7 +108,6 @@ export class ProductPagePrincipalities {
         controls.zoomSpeed = 1.2;
         controls.target.set(0, 0.5, 0);
         
-        // Свет
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
         scene.add(ambientLight);
         
@@ -161,7 +155,7 @@ export class ProductPagePrincipalities {
             controls.update();
             
             renderer.render(scene, camera);
-            console.log('Модель загружена!');
+            console.log('Модель загружена');
         }, undefined, (error) => {
             console.error('Ошибка загрузки модели:', error);
             const ctx = canvas.getContext('2d');
@@ -175,7 +169,6 @@ export class ProductPagePrincipalities {
             }
         });
         
-        // Кнопки управления
         document.getElementById('zoom-in').onclick = () => {
             const vec = new THREE.Vector3().subVectors(camera.position, controls.target).normalize();
             camera.position.addScaledVector(vec, -0.3);
