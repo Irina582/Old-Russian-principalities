@@ -6,7 +6,6 @@ export class MainPagePrincipalities {
         this.parent = parent;
         this.allStocks = [];     // все карточки с сервера
         this.filteredStocks = []; // отфильтрованные
-        this.limit = 0;          // 0 = все, иначе сколько показать
     }
 
     // Загрузка карточек с сервера
@@ -20,7 +19,7 @@ export class MainPagePrincipalities {
             if (status === 200 && data) {
                 this.allStocks = data;
                 this.filteredStocks = [...data];
-                this.applyLimit(); // применяем лимит после загрузки
+                this.renderCards(this.filteredStocks);
             } else {
                 console.error('Ошибка загрузки карточек');
                 this.allStocks = [];
@@ -30,22 +29,35 @@ export class MainPagePrincipalities {
         });
     }
 
-    // Применить лимит (пагинация на клиенте)
-    applyLimit() {
-        let limited = [...this.filteredStocks];
-        if (this.limit > 0 && this.limit < limited.length) {
-            limited = limited.slice(0, this.limit);
-        }
-        this.renderCards(limited);
+    // Добавление княжества (копия первой карточки)
+    addRuler() {
+        if (this.allStocks.length === 0) return;
+        const firstRuler = this.allStocks[0];
+        const newRuler = {
+            src: firstRuler.src,
+            title: firstRuler.title + " (копия)",
+            text: "Копия: " + firstRuler.text
+        };
+
+        // POST запрос на создание
+        ajax.post(stockUrls.createStock(), newRuler, (data, status) => {
+            if (status === 201 || status === 200) {
+                this.loadStocks(); // перезагружаем список
+            } else {
+                console.error('Ошибка добавления');
+            }
+        });
     }
 
-    // Обновить лимит из поля ввода
-    updateLimit() {
-        const limitInput = document.getElementById('limit-input_principalities');
-        let newLimit = parseInt(limitInput.value);
-        if (isNaN(newLimit) || newLimit < 0) newLimit = 0;
-        this.limit = newLimit;
-        this.applyLimit();
+    // Удаление княжества
+    deleteRuler(id) {
+        ajax.delete(stockUrls.removeStockById(id), (data, status) => {
+            if (status === 204) {
+                this.loadStocks(); // перезагружаем список
+            } else {
+                console.error('Ошибка удаления');
+            }
+        });
     }
 
     // Фильтр по названию (через API)
@@ -85,6 +97,17 @@ export class MainPagePrincipalities {
                 background-color: #38393d !important;
                 color: white !important;
             }
+            .btn-delete {
+                background-color: #dc3545 !important;
+                border-color: #dc3545 !important;
+                color: white !important;
+                font-size: 14px !important;
+                padding: 6px 12px !important;
+                margin: 3px;
+            }
+            .btn-delete:hover {
+                background-color: #c82333 !important;
+            }
             .cards-grid {
                 display: flex;
                 flex-wrap: wrap;
@@ -106,18 +129,19 @@ export class MainPagePrincipalities {
 
                 <div class="row mb-3">
                     <div class="col-12 text-center">
-                        <input type="text" class="form-control w-50 mx-auto mb-2" id="filter-input_principalities" placeholder="Фильтр по названию">
-                        <div class="mt-2">
-                            <button class="btn btn-custom" id="filter-btn_principalities">Применить фильтр</button>
-                            <button class="btn btn-outline-custom" id="reset-filter-btn_principalities">Сбросить фильтр</button>
-                        </div>
+                        <button class="btn btn-custom" id="add-ruler-btn_principalities">
+                            + Добавить княжество
+                        </button>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-12 text-center">
-                        <input type="number" class="form-control w-25 mx-auto" id="limit-input_principalities" placeholder="Лимит карточек" value="0" min="0">
-                        <button class="btn btn-custom mt-2" id="apply-limit-btn_principalities">Применить лимит</button>
+                        <input type="text" class="form-control w-50 mx-auto" id="filter-input_principalities" placeholder="Фильтр по названию">
+                        <div class="mt-2">
+                            <button class="btn btn-custom" id="filter-btn_principalities">Применить фильтр</button>
+                            <button class="btn btn-outline-custom" id="reset-filter-btn_principalities">Сбросить фильтр</button>
+                        </div>
                     </div>
                 </div>
 
@@ -127,9 +151,9 @@ export class MainPagePrincipalities {
 
         this.parent.insertAdjacentHTML('beforeend', html);
 
+        document.getElementById('add-ruler-btn_principalities').addEventListener('click', () => this.addRuler());
         document.getElementById('filter-btn_principalities').addEventListener('click', () => this.filterByTitle());
         document.getElementById('reset-filter-btn_principalities').addEventListener('click', () => this.resetFilter());
-        document.getElementById('apply-limit-btn_principalities').addEventListener('click', () => this.updateLimit());
 
         this.loadStocks();
     }
@@ -139,7 +163,7 @@ export class MainPagePrincipalities {
         if (!container) return;
         container.innerHTML = '';
 
-        stocks.forEach((stock, index) => {
+        stocks.forEach((stock) => {
             const card = document.createElement('div');
             card.className = 'card-item';
             card.innerHTML = `
@@ -148,6 +172,11 @@ export class MainPagePrincipalities {
                     <div class="card-body">
                         <h5 class="card-title">${stock.title}</h5>
                         <p class="card-text">${stock.text.substring(0, 100)}...</p>
+                        <div class="text-center mb-3">
+                            <button class="btn btn-delete delete-card-btn" data-id="${stock.id}">
+                                Удалить
+                            </button>
+                        </div>
                     </div>
                     <div class="card-footer bg-transparent text-center">
                         <button class="btn btn-custom view-details" data-id="${stock.id}">
@@ -159,8 +188,15 @@ export class MainPagePrincipalities {
 
             container.appendChild(card);
 
+            const deleteBtn = card.querySelector('.delete-card-btn');
+            deleteBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.deleteRuler(stock.id);
+            });
+
             const detailsBtn = card.querySelector('.view-details');
-            detailsBtn.addEventListener('click', () => {
+            detailsBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 this.openRulerPage(stock.id);
             });
         });
