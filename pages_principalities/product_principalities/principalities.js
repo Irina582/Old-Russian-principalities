@@ -1,32 +1,40 @@
 import { BackButtonComponentPrincipalities } from "../../components_principalities/back-button_principalities/principalities.js";
 import { ProductComponentPrincipalities } from "../../components_principalities/product_principalities/principalities.js";
 import { MainPagePrincipalities } from "../main_principalities/principalities.js";
-import { rulersData } from "../../data_principalities/principalities.js";
+import { ajax } from "../../modules_principalities/ajax_principalities.js";
+import { stockUrls } from "../../modules_principalities/stockUrls_principalities.js";
 
 export class ProductPagePrincipalities {
     constructor(parent, id) {
         this.parent = parent;
         this.id = id;
+        this.data = null;
     }
 
-    getData() {
-        const principality = rulersData[this.id];
-        
-        if (!principality) {
-            return {
-                id: this.id,
-                src: "",
-                title: "Княжество не найдено",
-                text: "Извините, информация о данном княжестве отсутствует"
-            };
-        }
-        
-        return {
-            id: this.id,
-            src: principality.image,
-            title: principality.name,
-            text: `${principality.description}\n\nПериод существования: ${principality.start} - ${principality.end}`
-        };
+    loadStock() {
+        const url = stockUrls.getStockById(this.id);
+        ajax.get(url, (data, status) => {
+            if (status === 200 && data) {
+                this.data = data;
+                this.renderData();
+            } else {
+                console.error('Ошибка загрузки карточки');
+                this.data = null;
+                this.renderError();
+            }
+        });
+    }
+
+    renderData() {
+        if (!this.data) return;
+        const textContainer = document.getElementById('text-content');
+        const stock = new ProductComponentPrincipalities(textContainer);
+        stock.render(this.data);
+    }
+
+    renderError() {
+        const textContainer = document.getElementById('text-content');
+        textContainer.innerHTML = `<div class="alert alert-danger">Карточка не найдена</div>`;
     }
 
     get pageRoot() {
@@ -56,10 +64,6 @@ export class ProductPagePrincipalities {
         const backButton = new BackButtonComponentPrincipalities(backButtonContainer);
         backButton.render(this.clickBack.bind(this));
 
-        const data = this.getData();
-        
-        const textContainer = document.getElementById('text-content');
-        const stock = new ProductComponentPrincipalities(textContainer);
-        stock.render(data);
+        this.loadStock();
     }
 }
