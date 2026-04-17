@@ -29,7 +29,13 @@ export class ProductPagePrincipalities {
         if (!this.data) return;
         const textContainer = document.getElementById('text-content');
         const stock = new ProductComponentPrincipalities(textContainer);
-        stock.render(this.data);
+        
+        const extendedData = {
+            ...this.data,
+            text: this.data.fullText || this.data.text
+        };
+        
+        stock.render(extendedData);
     }
 
     renderError() {

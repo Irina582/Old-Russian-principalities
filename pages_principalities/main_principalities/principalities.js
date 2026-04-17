@@ -4,11 +4,10 @@ import { stockUrls } from "../../modules_principalities/stockUrls_principalities
 export class MainPagePrincipalities {
     constructor(parent) {
         this.parent = parent;
-        this.allStocks = [];     // все карточки с сервера
-        this.filteredStocks = []; // отфильтрованные
+        this.allStocks = [];
+        this.filteredStocks = [];
     }
 
-    // Загрузка карточек с сервера
     loadStocks(title = '') {
         let url = stockUrls.getStocks();
         if (title) {
@@ -29,7 +28,6 @@ export class MainPagePrincipalities {
         });
     }
 
-    // Добавление княжества (копия первой карточки)
     addRuler() {
         if (this.allStocks.length === 0) return;
         const firstRuler = this.allStocks[0];
@@ -39,34 +37,30 @@ export class MainPagePrincipalities {
             text: "Копия: " + firstRuler.text
         };
 
-        // POST запрос на создание
         ajax.post(stockUrls.createStock(), newRuler, (data, status) => {
             if (status === 201 || status === 200) {
-                this.loadStocks(); // перезагружаем список
+                this.loadStocks();
             } else {
                 console.error('Ошибка добавления');
             }
         });
     }
 
-    // Удаление княжества
     deleteRuler(id) {
         ajax.delete(stockUrls.removeStockById(id), (data, status) => {
             if (status === 204) {
-                this.loadStocks(); // перезагружаем список
+                this.loadStocks();
             } else {
                 console.error('Ошибка удаления');
             }
         });
     }
 
-    // Фильтр по названию (через API)
     filterByTitle() {
         const filterText = document.getElementById('filter-input_principalities').value.trim();
         this.loadStocks(filterText);
     }
 
-    // Сбросить фильтр
     resetFilter() {
         document.getElementById('filter-input_principalities').value = '';
         this.loadStocks('');
@@ -107,6 +101,17 @@ export class MainPagePrincipalities {
             }
             .btn-delete:hover {
                 background-color: #c82333 !important;
+            }
+            .btn-edit {
+                background-color: #38393d !important;
+                border-color: #38393d !important;
+                color: white !important;
+                font-size: 14px !important;
+                padding: 6px 12px !important;
+                margin: 3px;
+            }
+            .btn-edit:hover {
+                background-color: #4a4c51 !important;
             }
             .cards-grid {
                 display: flex;
@@ -171,8 +176,11 @@ export class MainPagePrincipalities {
                     <img src="${stock.src || 'https://via.placeholder.com/400x200'}" class="card-img-top" alt="${stock.title}" style="height: 200px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title">${stock.title}</h5>
-                        <p class="card-text">${stock.text.substring(0, 100)}...</p>
+                        <p class="card-text">${stock.text}</p>
                         <div class="text-center mb-3">
+                            <button class="btn btn-edit edit-card-btn" data-id="${stock.id}">
+                                Редактировать
+                            </button>
                             <button class="btn btn-delete delete-card-btn" data-id="${stock.id}">
                                 Удалить
                             </button>
@@ -187,6 +195,12 @@ export class MainPagePrincipalities {
             `;
 
             container.appendChild(card);
+
+            const editBtn = card.querySelector('.edit-card-btn');
+            editBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.openEditPage(stock.id);
+            });
 
             const deleteBtn = card.querySelector('.delete-card-btn');
             deleteBtn.addEventListener('click', (e) => {
@@ -207,6 +221,14 @@ export class MainPagePrincipalities {
             const ProductPagePrincipalities = module.ProductPagePrincipalities;
             const productPage = new ProductPagePrincipalities(this.parent, id);
             productPage.render();
+        });
+    }
+
+    openEditPage(id) {
+        import('../../pages_principalities/edit_principalities/principalities.js').then(module => {
+            const EditPagePrincipalities = module.EditPagePrincipalities;
+            const editPage = new EditPagePrincipalities(this.parent, id);
+            editPage.render();
         });
     }
 }

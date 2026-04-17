@@ -1,0 +1,114 @@
+import { BackButtonComponentPrincipalities } from "../../components_principalities/back-button_principalities/principalities.js";
+import { ajax } from "../../modules_principalities/ajax_principalities.js";
+import { stockUrls } from "../../modules_principalities/stockUrls_principalities.js";
+import { MainPagePrincipalities } from "../main_principalities/principalities.js";
+
+export class EditPagePrincipalities {
+    constructor(parent, id) {
+        this.parent = parent;
+        this.id = id;
+        this.data = null;
+    }
+
+    loadStock() {
+        const url = stockUrls.getStockById(this.id);
+        ajax.get(url, (data, status) => {
+            if (status === 200 && data) {
+                this.data = data;
+                this.renderForm();
+            } else {
+                this.renderError();
+            }
+        });
+    }
+
+    renderForm() {
+        const container = document.getElementById('edit-form-container');
+        container.innerHTML = `
+            <div class="card p-4">
+                <h3>Редактирование карточки</h3>
+                <div class="mb-3">
+                    <label class="form-label">Заголовок</label>
+                    <input type="text" class="form-control" id="edit-title" value="${this.escapeHtml(this.data.title)}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Краткое описание (на карточке)</label>
+                    <textarea class="form-control" id="edit-text" rows="3">${this.escapeHtml(this.data.text)}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Полное описание (на странице подробнее)</label>
+                    <textarea class="form-control" id="edit-fullText" rows="6">${this.escapeHtml(this.data.fullText || '')}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">URL картинки</label>
+                    <input type="text" class="form-control" id="edit-src" value="${this.escapeHtml(this.data.src)}">
+                </div>
+                <button class="btn btn-success" id="save-changes-btn">Сохранить изменения</button>
+            </div>
+        `;
+
+        document.getElementById('save-changes-btn').addEventListener('click', () => {
+            this.saveChanges();
+        });
+    }
+
+    saveChanges() {
+        const updatedData = {
+            title: document.getElementById('edit-title').value,
+            text: document.getElementById('edit-text').value,
+            fullText: document.getElementById('edit-fullText').value,
+            src: document.getElementById('edit-src').value
+        };
+
+        const url = stockUrls.updateStockById(this.id);
+        ajax.patch(url, updatedData, (data, status) => {
+            if (status === 200) {
+                const mainPage = new MainPagePrincipalities(this.parent);
+                mainPage.render();
+            } else {
+                alert('Ошибка при обновлении');
+            }
+        });
+    }
+
+    renderError() {
+        const container = document.getElementById('edit-form-container');
+        container.innerHTML = `<div class="alert alert-danger">Карточка не найдена</div>`;
+    }
+
+    escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    getHTML() {
+        return `
+            <div id="edit-page">
+                <div id="back-button-container"></div>
+                <div id="edit-form-container" class="container mt-4"></div>
+            </div>
+        `;
+    }
+
+    clickBack() {
+        const mainPage = new MainPagePrincipalities(this.parent);
+        mainPage.render();
+    }
+
+    render() {
+        this.parent.innerHTML = '';
+        const html = this.getHTML();
+        this.parent.insertAdjacentHTML('beforeend', html);
+
+        const backButtonContainer = document.getElementById('back-button-container');
+        const backButton = new BackButtonComponentPrincipalities(backButtonContainer);
+        backButton.render(this.clickBack.bind(this));
+
+        this.loadStock();
+    }
+}
