@@ -10,16 +10,15 @@ export class EditPagePrincipalities {
         this.data = null;
     }
 
-    loadStock() {
+    async loadStock() {
         const url = stockUrls.getStockById(this.id);
-        ajax.get(url, (data, status) => {
-            if (status === 200 && data) {
-                this.data = data;
-                this.renderForm();
-            } else {
-                this.renderError();
-            }
-        });
+        const { data, status } = await ajax.get(url);
+        if (status === 200 && data) {
+            this.data = data;
+            this.renderForm();
+        } else {
+            this.renderError();
+        }
     }
 
     renderForm() {
@@ -52,7 +51,7 @@ export class EditPagePrincipalities {
         });
     }
 
-    saveChanges() {
+    async saveChanges() {
         const updatedData = {
             title: document.getElementById('edit-title').value,
             text: document.getElementById('edit-text').value,
@@ -61,14 +60,13 @@ export class EditPagePrincipalities {
         };
 
         const url = stockUrls.updateStockById(this.id);
-        ajax.patch(url, updatedData, (data, status) => {
-            if (status === 200) {
-                const mainPage = new MainPagePrincipalities(this.parent);
-                mainPage.render();
-            } else {
-                alert('Ошибка при обновлении');
-            }
-        });
+        const { status } = await ajax.patch(url, updatedData);
+        if (status === 200) {
+            const mainPage = new MainPagePrincipalities(this.parent);
+            mainPage.render();
+        } else {
+            alert('Ошибка при обновлении');
+        }
     }
 
     renderError() {

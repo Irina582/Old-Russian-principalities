@@ -11,18 +11,17 @@ export class ProductPagePrincipalities {
         this.data = null;
     }
 
-    loadStock() {
+    async loadStock() {
         const url = stockUrls.getStockById(this.id);
-        ajax.get(url, (data, status) => {
-            if (status === 200 && data) {
-                this.data = data;
-                this.renderData();
-            } else {
-                console.error('Ошибка загрузки карточки');
-                this.data = null;
-                this.renderError();
-            }
-        });
+        const { data, status } = await ajax.get(url);
+        if (status === 200 && data) {
+            this.data = data;
+            this.renderData();
+        } else {
+            console.error('Ошибка загрузки карточки');
+            this.data = null;
+            this.renderError();
+        }
     }
 
     renderData() {

@@ -8,27 +8,26 @@ export class MainPagePrincipalities {
         this.filteredStocks = [];
     }
 
-    loadStocks(title = '') {
+    async loadStocks(title = '') {
         let url = stockUrls.getStocks();
         if (title) {
             url += `?title=${encodeURIComponent(title)}`;
         }
 
-        ajax.get(url, (data, status) => {
-            if (status === 200 && data) {
-                this.allStocks = data;
-                this.filteredStocks = [...data];
-                this.renderCards(this.filteredStocks);
-            } else {
-                console.error('Ошибка загрузки карточек');
-                this.allStocks = [];
-                this.filteredStocks = [];
-                this.renderCards([]);
-            }
-        });
+        const { data, status } = await ajax.get(url);
+        if (status === 200 && data) {
+            this.allStocks = data;
+            this.filteredStocks = [...data];
+            this.renderCards(this.filteredStocks);
+        } else {
+            console.error('Ошибка загрузки карточек');
+            this.allStocks = [];
+            this.filteredStocks = [];
+            this.renderCards([]);
+        }
     }
 
-    addRuler() {
+    async addRuler() {
         if (this.allStocks.length === 0) return;
         const firstRuler = this.allStocks[0];
         const newRuler = {
@@ -37,23 +36,21 @@ export class MainPagePrincipalities {
             text: "Копия: " + firstRuler.text
         };
 
-        ajax.post(stockUrls.createStock(), newRuler, (data, status) => {
-            if (status === 201 || status === 200) {
-                this.loadStocks();
-            } else {
-                console.error('Ошибка добавления');
-            }
-        });
+        const { status } = await ajax.post(stockUrls.createStock(), newRuler);
+        if (status === 201 || status === 200) {
+            this.loadStocks();
+        } else {
+            console.error('Ошибка добавления');
+        }
     }
 
-    deleteRuler(id) {
-        ajax.delete(stockUrls.removeStockById(id), (data, status) => {
-            if (status === 204) {
-                this.loadStocks();
-            } else {
-                console.error('Ошибка удаления');
-            }
-        });
+    async deleteRuler(id) {
+        const { status } = await ajax.delete(stockUrls.removeStockById(id));
+        if (status === 204) {
+            this.loadStocks();
+        } else {
+            console.error('Ошибка удаления');
+        }
     }
 
     filterByTitle() {
