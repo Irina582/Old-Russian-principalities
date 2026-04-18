@@ -6,6 +6,9 @@ const stocksService = require('./services_principalities/stocksService_principal
 const app = express();
 const PORT = 3000;
 
+// раздача статики (фронтенд из 3-й лабы)
+app.use(express.static(path.join(__dirname, '../public')));
+
 // CORS middleware
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
