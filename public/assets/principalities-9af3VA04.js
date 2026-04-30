@@ -1,3 +1,3 @@
-import{c as e}from"./principalities-BJaky090.js";var t,n=e((()=>{t=class{constructor(e){this.parent=e}addListeners(e){document.getElementById(`back-button`).addEventListener(`click`,e)}getHTML(){return`
+import{c as e}from"./principalities-DJEvJEwl.js";var t,n=e((()=>{t=class{constructor(e){this.parent=e}addListeners(e){document.getElementById(`back-button`).addEventListener(`click`,e)}getHTML(){return`
                 <button id="back-button" class="btn btn-primary" type="button">Назад</button>
             `}render(e){let t=this.getHTML();this.parent.insertAdjacentHTML(`beforeend`,t),this.addListeners(e)}}}));export{n,t};

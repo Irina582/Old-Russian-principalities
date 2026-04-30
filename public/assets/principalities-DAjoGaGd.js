@@ -1,4 +1,4 @@
-import{a as e,c as t,i as n,n as r,o as i,r as a,t as o}from"./principalities-BJaky090.js";import{n as s,t as c}from"./principalities-n_ON8M3-.js";var l,u=t((()=>{l=class{constructor(e){this.parent=e}getHTML(e){return`
+import{a as e,c as t,i as n,n as r,o as i,r as a,t as o}from"./principalities-DJEvJEwl.js";import{n as s,t as c}from"./principalities-9af3VA04.js";var l,u=t((()=>{l=class{constructor(e){this.parent=e}getHTML(e){return`
                 <div class="card mb-3" style="width: 1000px;">
                     <div class="row g-0">
                         <div class="col-md-4">
