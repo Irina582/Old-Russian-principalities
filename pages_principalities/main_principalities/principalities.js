@@ -29,20 +29,14 @@ export class MainPagePrincipalities {
     }
 
     addRuler() {
-        if (this.allStocks.length === 0) return;
-        const firstRuler = this.allStocks[0];
-        const newRuler = {
-            src: firstRuler.src,
-            title: firstRuler.title + " (копия)",
-            text: "Копия: " + firstRuler.text
-        };
+        this.openCreatePage();
+    }
 
-        ajax.post(stockUrls.createStock(), newRuler, (data, status) => {
-            if (status === 201 || status === 200) {
-                this.loadStocks();
-            } else {
-                console.error('Ошибка добавления');
-            }
+    openCreatePage() {
+        import('../../pages_principalities/edit_principalities/principalities.js').then(module => {
+            const EditPagePrincipalities = module.EditPagePrincipalities;
+            const editPage = new EditPagePrincipalities(this.parent, null, true);
+            editPage.render();
         });
     }
 
@@ -227,7 +221,7 @@ export class MainPagePrincipalities {
     openEditPage(id) {
         import('../../pages_principalities/edit_principalities/principalities.js').then(module => {
             const EditPagePrincipalities = module.EditPagePrincipalities;
-            const editPage = new EditPagePrincipalities(this.parent, id);
+            const editPage = new EditPagePrincipalities(this.parent, id, false);
             editPage.render();
         });
     }

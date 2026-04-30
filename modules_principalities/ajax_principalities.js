@@ -25,7 +25,6 @@ class Ajax {
     post(url, data, callback) {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', url);
-        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(data));
 
         xhr.onreadystatechange = () => {
@@ -44,7 +43,6 @@ class Ajax {
     patch(url, data, callback) {
         const xhr = new XMLHttpRequest();
         xhr.open('PATCH', url);
-        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(data));
 
         xhr.onreadystatechange = () => {
