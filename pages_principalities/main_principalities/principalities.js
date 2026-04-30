@@ -28,20 +28,7 @@ export class MainPagePrincipalities {
     }
 
     async addRuler() {
-        if (this.allStocks.length === 0) return;
-        const firstRuler = this.allStocks[0];
-        const newRuler = {
-            src: firstRuler.src,
-            title: firstRuler.title + " (копия)",
-            text: "Копия: " + firstRuler.text
-        };
-
-        const { status } = await ajax.post(stockUrls.createStock(), newRuler);
-        if (status === 201 || status === 200) {
-            this.loadStocks();
-        } else {
-            console.error('Ошибка добавления');
-        }
+        this.openEditPage(null);
     }
 
     async deleteRuler(id) {
