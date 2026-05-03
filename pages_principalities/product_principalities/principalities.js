@@ -25,7 +25,7 @@ export class ProductPagePrincipalities {
             id: this.id,
             src: principality.image,
             title: principality.name,
-            text: `${principality.description}\n\nПериод существования: ${principality.start} - ${principality.end}`
+            text: principality.fullDescription || `${principality.description}\n\nПериод существования: ${principality.start} - ${principality.end}`
         };
     }
 
