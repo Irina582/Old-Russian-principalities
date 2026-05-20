@@ -1,5 +1,6 @@
 import { ajax } from "../../modules_principalities/ajax_principalities.js";
 import { stockUrls } from "../../modules_principalities/stockUrls_principalities.js";
+import { HeaderComponentPrincipalities } from "../../components_principalities/header_principalities/principalities.js";
 
 export class MainPagePrincipalities {
     constructor(parent) {
@@ -63,6 +64,13 @@ export class MainPagePrincipalities {
     render() {
         this.parent.innerHTML = '';
 
+        // Добавляем хедер
+        const header = new HeaderComponentPrincipalities(this.parent, () => {
+            // Обработчик клика - перерисовываем главную (очищаем всё и рендерим заново)
+            this.render();
+        });
+        header.render();
+
         const style = document.createElement('style');
         style.textContent = `
             .btn-custom {
@@ -124,8 +132,6 @@ export class MainPagePrincipalities {
 
         const html = `
             <div class="container-fluid mt-4">
-                <h1 class="text-center mb-4">Древнерусские княжества</h1>
-
                 <div class="row mb-3">
                     <div class="col-12 text-center">
                         <button class="btn btn-custom" id="add-ruler-btn_principalities">
