@@ -1,7 +1,7 @@
-import { BackButtonComponentPrincipalities } from "../../components_principalities/back-button_principalities/principalities.js";
 import { ajax } from "../../modules_principalities/ajax_principalities.js";
 import { stockUrls } from "../../modules_principalities/stockUrls_principalities.js";
 import { MainPagePrincipalities } from "../main_principalities/principalities.js";
+import { HeaderComponentPrincipalities } from "../../components_principalities/header_principalities/principalities.js";
 
 export class EditPagePrincipalities {
     constructor(parent, id = null) {
@@ -146,7 +146,6 @@ export class EditPagePrincipalities {
     getHTML() {
         return `
             <div id="edit-page">
-                <div id="back-button-container"></div>
                 <div id="edit-form-container" class="container mt-4"></div>
             </div>
         `;
@@ -159,12 +158,15 @@ export class EditPagePrincipalities {
 
     render() {
         this.parent.innerHTML = '';
+
+        const header = new HeaderComponentPrincipalities(this.parent, () => {
+            const mainPage = new MainPagePrincipalities(this.parent);
+            mainPage.render();
+        });
+        header.render();
+
         const html = this.getHTML();
         this.parent.insertAdjacentHTML('beforeend', html);
-
-        const backButtonContainer = document.getElementById('back-button-container');
-        const backButton = new BackButtonComponentPrincipalities(backButtonContainer);
-        backButton.render(this.clickBack.bind(this));
 
         this.loadStock();
     }
