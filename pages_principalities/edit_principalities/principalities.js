@@ -1,6 +1,6 @@
 import { MainPagePrincipalities } from "../main_principalities/principalities.js";
 import { ajax } from "../../modules_principalities/ajax_principalities.js";
-import { stockUrls } from "../../modules_principalities/stockUrls_principalities.js";
+import { urls } from "../../modules_principalities/urls_principalities.js";
 import { HeaderComponentPrincipalities } from "../../components_principalities/header_principalities/principalities.js";
 
 export class EditPagePrincipalities {
