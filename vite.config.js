@@ -6,6 +6,6 @@ export default defineConfig({
         emptyOutDir: true,
     },
     server: {
-        open: '/principalities.html'
+        open: '/index.html'
     }
 });
