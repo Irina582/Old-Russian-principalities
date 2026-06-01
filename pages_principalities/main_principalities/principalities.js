@@ -1,5 +1,5 @@
 import { ajax } from "../../modules_principalities/ajax_principalities.js";
-import { stockUrls } from "../../modules_principalities/stockUrls_principalities.js";
+import { urls } from "../../modules_principalities/urls_principalities.js";
 import { HeaderComponentPrincipalities } from "../../components_principalities/header_principalities/principalities.js";
 
 export class MainPagePrincipalities {
@@ -10,7 +10,7 @@ export class MainPagePrincipalities {
     }
 
     async loadStocks(title = '') {
-        let url = stockUrls.getStocks();
+        let url = urls.getItems();
         if (title) {
             url += `?title=${encodeURIComponent(title)}`;
         }
@@ -33,7 +33,7 @@ export class MainPagePrincipalities {
     }
 
     async deleteRuler(id) {
-        const { status } = await ajax.delete(stockUrls.removeStockById(id));
+        const { status } = await ajax.delete(urls.removeItemById(id));
         if (status === 204) {
             this.loadStocks();
         } else {
