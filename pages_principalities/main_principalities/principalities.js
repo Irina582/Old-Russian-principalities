@@ -10,7 +10,7 @@ export class MainPagePrincipalities {
     }
 
     loadStocks(title = '') {
-        let url = stockUrls.getStocks();
+        let url = urls.getItems();  // <-- ИСПРАВЛЕНО
         if (title) {
             url += `?title=${encodeURIComponent(title)}`;
         }
@@ -42,7 +42,7 @@ export class MainPagePrincipalities {
     }
 
     deleteRuler(id) {
-        ajax.delete(stockUrls.removeStockById(id), (data, status) => {
+        ajax.delete(urls.removeItemById(id), (data, status) => {  // <-- ИСПРАВЛЕНО
             if (status === 204) {
                 this.loadStocks();
             } else {
@@ -64,9 +64,7 @@ export class MainPagePrincipalities {
     render() {
         this.parent.innerHTML = '';
 
-        // Добавляем хедер
         const header = new HeaderComponentPrincipalities(this.parent, () => {
-            // Обработчик клика - перерисовываем главную (очищаем всё и рендерим заново)
             this.render();
         });
         header.render();

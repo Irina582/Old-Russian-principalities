@@ -2,7 +2,7 @@ import { MainPagePrincipalities } from "../main_principalities/principalities.js
 import { ajax } from "../../modules_principalities/ajax_principalities.js";
 import { urls } from "../../modules_principalities/urls_principalities.js";
 import { HeaderComponentPrincipalities } from "../../components_principalities/header_principalities/principalities.js";
-
+ 
 export class EditPagePrincipalities {
     constructor(parent, id, isCreateMode = false) {
         this.parent = parent;
@@ -10,7 +10,7 @@ export class EditPagePrincipalities {
         this.isCreateMode = isCreateMode;
         this.data = null;
     }
-
+ 
     loadStock() {
         if (this.isCreateMode) {
             this.data = {
@@ -21,7 +21,7 @@ export class EditPagePrincipalities {
             };
             this.renderForm();
         } else {
-            const url = stockUrls.getStockById(this.id);
+            const url = urls.getItemById(this.id);
             ajax.get(url, (data, status) => {
                 if (status === 200 && data) {
                     this.data = data;
@@ -32,7 +32,7 @@ export class EditPagePrincipalities {
             });
         }
     }
-
+ 
     renderForm() {
         const container = document.getElementById('edit-form-container');
         const titleText = this.isCreateMode ? 'Создание новой карточки' : 'Редактирование карточки';
@@ -59,12 +59,12 @@ export class EditPagePrincipalities {
             </div>
         `;
     }
-
+ 
     renderError() {
         const container = document.getElementById('edit-form-container');
         container.innerHTML = `<div class="alert alert-danger">Карточка не найдена</div>`;
     }
-
+ 
     escapeHtml(str) {
         if (!str) return '';
         return str.replace(/[&<>]/g, function(m) {
@@ -74,7 +74,7 @@ export class EditPagePrincipalities {
             return m;
         });
     }
-
+ 
     getHTML() {
         return `
             <div id="edit-page">
@@ -82,12 +82,7 @@ export class EditPagePrincipalities {
             </div>
         `;
     }
-
-    clickBack() {
-        const mainPage = new MainPagePrincipalities(this.parent);
-        mainPage.render();
-    }
-
+ 
     render() {
         this.parent.innerHTML = '';
         
@@ -99,7 +94,7 @@ export class EditPagePrincipalities {
         
         const html = this.getHTML();
         this.parent.insertAdjacentHTML('beforeend', html);
-
+ 
         this.loadStock();
     }
 }
